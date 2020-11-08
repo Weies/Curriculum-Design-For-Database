@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>close.png</file>
+        <file>max.png</file>
+        <file>min.png</file>
+    </qresource>
+    <qresource prefix="/bkg">
+        <file>bkg.png</file>
+        <file>btn.png</file>
+    </qresource>
+</RCC>
