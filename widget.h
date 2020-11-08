@@ -17,6 +17,9 @@ public:
     QLabel* title;
     QSqlTableModel *model;
     QToolButton* portrait;
+    QWidget* header;
+    QToolButton* control;
+    QToolButton* sites;
 
     pick* pick;//选择网站页面，已经写了
     QWidget* login;//登录页面

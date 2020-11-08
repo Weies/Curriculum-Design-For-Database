@@ -11,6 +11,7 @@
 #include<QCryptographicHash>
 #include<QApplication>
 #include<QLabel>
+#include<QHBoxLayout>
 QSqlDatabase db;
 bool regestered=false;
 QString username;
@@ -31,15 +32,31 @@ Widget::Widget()
     pick=new class pick(this);
     pick->move(0,80);
     initialUser();
-    portrait=new QToolButton(this);
-    portrait->setIconSize(QSize(60,60));
-    portrait->move(940,40);
-    title=new QLabel(this);title->setText("EasyWeber,做网络的主人");title->setStyleSheet("color:rgb(79,141,255)");
+
+    title=new QLabel(this);title->setText(" EasyWeber 一键成为网络的主人");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer=new QTimer(this);
     connect(timer,&QTimer::timeout,[=](){
         pick->move(pick->x()+20,80);
     });
+
+    header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width(),60);
+    QHBoxLayout *lay=new QHBoxLayout(header);
+
+
+    header->setStyleSheet("background-color:rgba(255,255,255,50)");
+
+    control=new QToolButton;control->setText("控制台");
+    sites=new QToolButton;sites->setText("网站列表");
+    QLabel* l=new QLabel("|");
+    lay->addWidget(sites);
+    lay->addWidget(l);
+    lay->addWidget(control);
+
+
+    portrait=new QToolButton(this);
+    portrait->setIconSize(QSize(60,60));
+    portrait->move(940,40);
     if(!regestered)
     portrait->setIcon(QIcon(QPixmap(":/icon/un_reg_user.png")));//未注册设置默认头像
     else
@@ -49,6 +66,7 @@ Widget::Widget()
     connect(pick->buy,&QToolButton::clicked,[=](){
         timer->start(1);if(pick->y()>1000)timer->stop();
     });
+
     // 如果点击点击了头像，注册了查看详细用户的详细信息
     //未注册弹出注册页面
 

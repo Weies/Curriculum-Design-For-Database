@@ -8,7 +8,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setStyleSheet("*{font:16pt;font-family:Microsoft Yahei Ui;color:dark;} QTableView::Item{border-bottom:1px solid rgb(100,100,100);} "
-                    "QToolButton {background-color:rgba(180,180,180,20);border:0px;}");
+                    "QToolButton {background-color:rgba(180,180,180,20);border:0px;}"
+                    "QLabel {alignment:center;}");
     //a.setStyleSheet("");
     Widget w;
     w.show();
