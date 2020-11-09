@@ -12,6 +12,7 @@
 #include<QApplication>
 #include<QLabel>
 #include<QHBoxLayout>
+
 QSqlDatabase db;
 bool regestered=false;
 QString username;
@@ -42,7 +43,6 @@ Widget::Widget()
 
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width(),60);
     QHBoxLayout *lay=new QHBoxLayout(header);
-
 
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
 
@@ -100,7 +100,7 @@ void Widget::loadinfo()
     model->setTable("available_DN");
     if(!model->select())
     {
-        QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
+        QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
     connect(pick->searchbutton,&QToolButton::clicked,[=](){model->setFilter("网站 like '%"+pick->input->text()+"%'");});
 }
