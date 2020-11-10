@@ -26,7 +26,7 @@ HEADERS += \
     line.h \
     no_frame_widget.h \
     pick.h \
-    toolbutton.h \
+    superbutton.h \
     widget.h
 
 FORMS += \

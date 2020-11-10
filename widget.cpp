@@ -34,6 +34,10 @@ Widget::Widget()
     pick->move(0,80);
     initialUser();
 
+//    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
+//    btn->resize(60,60);
+//    btn->move(400,400);
+
     title=new QLabel(this);title->setText(" EasyWeber 一键成为网络的主人");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer=new QTimer(this);
@@ -41,24 +45,26 @@ Widget::Widget()
         pick->move(pick->x()+20,80);
     });
 
-    header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width(),60);
+    header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
-
+    lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
 
-    control=new QToolButton;control->setText("控制台");
-    sites=new QToolButton;sites->setText("网站列表");
+    control=new superButton("控制台");
+    sites=new superButton("网站列表");
     QLabel* l=new QLabel("|");
-    lay->addWidget(sites);
-    lay->addWidget(l);
+    l->setMaximumWidth(10);
+    l->setStyleSheet("background-color:transparent;");
     lay->addWidget(control);
+    lay->addWidget(l);
+    lay->addWidget(sites);
+    connect(sites,&superButton::Clicked,this,[=](){sites->setMouseOutColor(QColor(100,100,255,50));});
 
-
-    portrait=new QToolButton(this);
-    portrait->setIconSize(QSize(60,60));
-    portrait->move(940,40);
+    portrait=new superButton(QPixmap(":/icon/un_reg_user.png"),this);
+    portrait->setPixSize(50,50);
+    portrait->move(950,40);portrait->resize(50,50);
     if(!regestered)
-    portrait->setIcon(QIcon(QPixmap(":/icon/un_reg_user.png")));//未注册设置默认头像
+    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
     else
     {
         //设置用户的头像

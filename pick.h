@@ -15,6 +15,7 @@ class pick : public QWidget
     Q_OBJECT
 public:
     explicit pick(QWidget *parent = nullptr);
+    bool eventFilter(QObject*,QEvent* );
     Ui::Form* ui;
     QTableView* view;
     QToolButton* buy;

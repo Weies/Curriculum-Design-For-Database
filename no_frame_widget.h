@@ -2,7 +2,7 @@
 #define NO_FRAME_WIDGET_H
 
 #include <QWidget>
-#include <QToolButton>
+#include <superbutton.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
@@ -17,15 +17,14 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void resizeEvent(QResizeEvent*);
-    QToolButton* close;//关闭
-    QToolButton* min;//最小化
-    QToolButton* max;//最大化
+    superButton* close;//关闭
+    superButton* min;//最小化
+    superButton* max;//最大化
 
 private:
-    int w;int h;//最大化之前的宽度和高度
-    int xx;int yy;
-
-    int px;int py;
+    int w=0;int h=0;//最大化之前的宽度和高度
+    int xx=0;int yy=0;
+    int px=0;int py=0;
     Ui::Widget *ui;
 };
 #endif // WIDGET_H

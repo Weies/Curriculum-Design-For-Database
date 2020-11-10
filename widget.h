@@ -5,6 +5,7 @@
 #include<pick.h>
 #include<QSqlTableModel>
 #include<QLabel>
+#include<superbutton.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
 public:
@@ -16,11 +17,12 @@ public:
     QTimer* timer;
     QLabel* title;
     QSqlTableModel *model;
-    QToolButton* portrait;
+    superButton* portrait;
     QWidget* header;
-    QToolButton* control;
-    QToolButton* sites;
+    superButton* control;
+    superButton* sites;
 
+    //superButton* btn;
     pick* pick;//选择网站页面，已经写了
     QWidget* login;//登录页面
     QWidget* reg;//注册页面

@@ -9,21 +9,20 @@ No_Frame_Widget::No_Frame_Widget(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint);
-    close=new QToolButton(this);//初始化关闭按钮
-    close->resize(60,40);close->move(100,200);
-    close->setIcon(QPixmap(":/icon/close.png"));
+    close=new superButton(QPixmap(":/icon/close.png"),this);//初始化关闭按钮
+    close->setPixSize(30,30);
+    close->resize(60,40);
 
-    min=new QToolButton(this);
-    min->resize(60,40);min->move(200,200);
-    min->setIcon(QPixmap(":/icon/min.png"));
+    min=new superButton(QPixmap(":/icon/min.png"),this);
+    min->setPixSize(35,35);
+    min->resize(60,40);
 
-    max=new QToolButton(this);
-    max->resize(60,40);; max->move(300,200);
-    max->setIcon(QPixmap(":/icon/max.png"));
+    max=new superButton(QPixmap(":/icon/max.png"),this);
+    max->setPixSize(30,30);max->resize(60,40);
 
-    connect(close,SIGNAL(clicked()),SLOT(close()));
-    connect(min,&QToolButton::clicked,this,&No_Frame_Widget::showMinimized);
-    connect(max,&QToolButton::clicked,this,[=](){
+    connect(close,SIGNAL(Clicked()),SLOT(close()));
+    connect(min,&superButton::Clicked,this,&No_Frame_Widget::showMinimized);
+    connect(max,&superButton::Clicked,this,[=](){
         maxstate=!maxstate;
         if(maxstate)
         {
@@ -39,8 +38,8 @@ No_Frame_Widget::No_Frame_Widget(QWidget *parent)
 
 void No_Frame_Widget::resizeEvent(QResizeEvent *)
 {
-    close->move(width()-60,0);
     max->move(width()-120,0);
+    close->move(width()-60,0);
     min->move(width()-180,0);
 }
 
