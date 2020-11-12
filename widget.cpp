@@ -38,7 +38,7 @@ Widget::Widget()
 //    btn->resize(60,60);
 //    btn->move(400,400);
 
-    title=new QLabel(this);title->setText(" EasyWeber 一键成为网络的主人");title->setStyleSheet("color:rgb(79,141,255)");
+    title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer=new QTimer(this);
     connect(timer,&QTimer::timeout,[=](){

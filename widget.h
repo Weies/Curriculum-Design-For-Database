@@ -28,6 +28,7 @@ public:
     QWidget* reg;//注册页面
     QWidget* controlPanel;//控制面板页面
     QWidget* usrinfo;//用户个人信息页面
+
 };
 
 #endif // WIDGET_H
