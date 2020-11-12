@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     line.cpp \
+    login.cpp \
     main.cpp \
     no_frame_widget.cpp \
     pick.cpp \
@@ -24,12 +25,14 @@ SOURCES += \
 
 HEADERS += \
     line.h \
+    login.h \
     no_frame_widget.h \
     pick.h \
     superbutton.h \
     widget.h
 
 FORMS += \
+    login.ui \
     no_frame_widget.ui \
     pick.ui
 

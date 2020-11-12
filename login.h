@@ -1,6 +1,6 @@
 #ifndef LOGIN_H
 #define LOGIN_H
-
+#include<superbutton.h>
 #include <QWidget>
 
 namespace Ui {
@@ -14,7 +14,8 @@ class login : public QWidget
 public:
     explicit login(QWidget *parent = nullptr);
     ~login();
-
+    superButton *btn_loginin;
+    superButton *btn_register;
 private:
     Ui::login *ui;
 };

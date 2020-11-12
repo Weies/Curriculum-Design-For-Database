@@ -12,7 +12,7 @@
 #include<QApplication>
 #include<QLabel>
 #include<QHBoxLayout>
-
+#include<QDebug>
 QSqlDatabase db;
 bool regestered=false;
 QString username;
@@ -32,8 +32,11 @@ Widget::Widget()
     resize(1000,800);
     pick=new class pick(this);
     pick->move(0,80);
+    pick->hide();
     initialUser();
-
+    login= new class login(this);//login->hide();
+    login->resize(1000,720);
+    login->move(0,80);
 //    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
 //    btn->resize(60,60);
 //    btn->move(400,400);
@@ -43,14 +46,22 @@ Widget::Widget()
     timer=new QTimer(this);
     connect(timer,&QTimer::timeout,[=](){
         pick->move(pick->x()+20,80);
+        if(pick->x()>1000)
+        {
+            timer->stop();
+            emit gotologin();
+        }
     });
 
+    connect(this,&Widget::gotologin,[=](){
+        login->show();qDebug()<<"did";
+    });
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
 
-    control=new superButton("控制台");
+     control=new superButton("控制台");
     sites=new superButton("网站列表");
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(10);
@@ -70,7 +81,7 @@ Widget::Widget()
         //设置用户的头像
     }
     connect(pick->buy,&QToolButton::clicked,[=](){
-        timer->start(1);if(pick->y()>1000)timer->stop();
+        timer->start(1);
     });
 
     // 如果点击点击了头像，注册了查看详细用户的详细信息

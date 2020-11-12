@@ -24,9 +24,14 @@ private:
     int frame=5;
     int px=0;int py=0;
     bool pixed=false;
+    int radius=0;
 signals:void Clicked();
 public:
     void setPixSize(int x,int y){px=x;py=y;pixed=true;};
+    void setRadius(int newradius)
+    {
+        radius=newradius;
+    }
     superButton(const QString& str,QWidget* p=nullptr)
     {
         setStyleSheet("background-color:transparent");
@@ -35,7 +40,7 @@ public:
         label.setAttribute(Qt::WA_TransparentForMouseEvents);
         label.setAlignment(Qt::AlignCenter);
         setAttribute(Qt::WA_TransparentForMouseEvents,false);
-        setMinimumSize(400,50);
+        setMinimumSize(100,50);
     }
 
     superButton(const QString& str,const QPixmap& px,QWidget* p=nullptr)
@@ -70,7 +75,7 @@ public:
         label.move(0,0);label.resize(width(),height());
     }
 
-    void setMouseOutColor(QColor c){mouseOutColor=c;};
+    void setMouseOutColor(QColor c){mouseOutColor=c;bkgdColor=c;repaint();};
     void setBackColor(QColor c){bkgdColor=c;};
     void setMouseInColor(QColor c){mouseInColor=c;};
     void setPixmap(const QPixmap& p){pix=p;};

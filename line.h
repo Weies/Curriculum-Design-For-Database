@@ -4,6 +4,7 @@
 class pick;
 class Line:public QLineEdit
 {
+    Q_OBJECT
 public:
     Line(QWidget* p);
     void focusInEvent(QFocusEvent *) override;
