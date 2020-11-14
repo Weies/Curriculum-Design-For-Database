@@ -7,7 +7,7 @@
 #include<QLabel>
 #include<superbutton.h>
 #include<login.h>
-
+#include<register_widget.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -24,15 +24,19 @@ public:
     QWidget* header;
     superButton* control;
     superButton* sites;
+    QWidget* currentwidget;
+    QWidget* targetwidget;
 
     //superButton* btn;
     pick* pick;//选择网站页面，已经写了
     login* login;//登录页面
-    QWidget* reg;//注册页面
+    register_widget* reg;//注册页面
     QWidget* controlPanel;//控制面板页面
     QWidget* usrinfo;//用户个人信息页面
 signals:
     void gotologin();
+    void gotoregister();
+    void gotoperson();
 };
 
 #endif // WIDGET_H

@@ -32,11 +32,14 @@ Widget::Widget()
     resize(1000,800);
     pick=new class pick(this);
     pick->move(0,80);
-    pick->hide();
+    //pick->hide();
     initialUser();
-    login= new class login(this);//login->hide();
+    login= new class login(this);login->hide();
     login->resize(1000,720);
     login->move(0,80);
+    reg=new register_widget(this);reg->hide();
+    reg->resize(1000,720);
+    reg->move(0,80);
 //    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
 //    btn->resize(60,60);
 //    btn->move(400,400);
@@ -44,6 +47,7 @@ Widget::Widget()
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer=new QTimer(this);
+
     connect(timer,&QTimer::timeout,[=](){
         pick->move(pick->x()+20,80);
         if(pick->x()>1000)
@@ -60,7 +64,14 @@ Widget::Widget()
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
+    connect(this,&Widget::gotoregister,[=](){
 
+        login->hide();
+        reg->show();
+    });
+    connect(this,&Widget::gotoperson,[=](){
+
+    });
     control=new superButton("控制台");
     sites=new superButton("网站列表");
     QLabel* l=new QLabel("|");
@@ -80,6 +91,7 @@ Widget::Widget()
     {
         //设置用户的头像
     }
+
     connect(pick->buy,&QToolButton::clicked,[=](){
         timer->start(1);
     });

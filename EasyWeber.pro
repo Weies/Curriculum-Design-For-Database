@@ -20,21 +20,27 @@ SOURCES += \
     login.cpp \
     main.cpp \
     no_frame_widget.cpp \
+    person_widget.cpp \
     pick.cpp \
+    register_widget.cpp \
     widget.cpp
 
 HEADERS += \
     line.h \
     login.h \
     no_frame_widget.h \
+    person_widget.h \
     pick.h \
+    register_widget.h \
     superbutton.h \
     widget.h
 
 FORMS += \
     login.ui \
     no_frame_widget.ui \
-    pick.ui
+    person_widget.ui \
+    pick.ui \
+    register_widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

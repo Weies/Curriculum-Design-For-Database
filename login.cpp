@@ -1,6 +1,6 @@
 #include "login.h"
 #include "ui_login.h"
-
+#include<widget.h>
 login::login(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::login)
@@ -12,6 +12,9 @@ login::login(QWidget *parent) :
     btn_register->move(520,400);
     btn_loginin->setMouseOutColor(QColor(4,186,251));
     btn_register->setMouseOutColor(QColor(4,186,251));
+    connect(btn_register,&superButton::Clicked,[=](){
+        emit dynamic_cast<Widget*>(parent)->gotoregister();
+    });
 }
 
 login::~login()
