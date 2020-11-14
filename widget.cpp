@@ -61,7 +61,7 @@ Widget::Widget()
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
 
-     control=new superButton("控制台");
+    control=new superButton("控制台");
     sites=new superButton("网站列表");
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(10);

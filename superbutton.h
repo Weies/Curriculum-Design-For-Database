@@ -40,7 +40,7 @@ public:
         label.setAttribute(Qt::WA_TransparentForMouseEvents);
         label.setAlignment(Qt::AlignCenter);
         setAttribute(Qt::WA_TransparentForMouseEvents,false);
-        setMinimumSize(100,50);
+        setMinimumSize(label.text().length()*36,50);
     }
 
     superButton(const QString& str,const QPixmap& px,QWidget* p=nullptr)
@@ -72,6 +72,7 @@ public:
             pixed=true;
             pix.scaled(px,py,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
         }
+
         label.move(0,0);label.resize(width(),height());
     }
 
