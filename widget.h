@@ -8,6 +8,7 @@
 #include<superbutton.h>
 #include<login.h>
 #include<register_widget.h>
+
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -26,7 +27,8 @@ public:
     superButton* sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
-
+    int direction;
+    void change_widget();
     //superButton* btn;
     pick* pick;//选择网站页面，已经写了
     login* login;//登录页面

@@ -14,6 +14,7 @@
 #include<QHBoxLayout>
 #include<QDebug>
 QSqlDatabase db;
+
 bool regestered=false;
 QString username;
 QString password;
@@ -32,6 +33,7 @@ Widget::Widget()
     resize(1000,800);
     pick=new class pick(this);
     pick->move(0,80);
+    currentwidget=pick;
     //pick->hide();
     initialUser();
     login= new class login(this);login->hide();
@@ -49,25 +51,63 @@ Widget::Widget()
     timer=new QTimer(this);
 
     connect(timer,&QTimer::timeout,[=](){
-        pick->move(pick->x()+20,80);
-        if(pick->x()>1000)
+        if(direction==0)
         {
-            timer->stop();
-            emit gotologin();
+            targetwidget->move(0,targetwidget->y()-20);
+            currentwidget->move(0,currentwidget->y()-20);
+            if(currentwidget->y()<=80)
+            {
+                timer->stop();
+            }
         }
-    });
+        else if(direction==1)
+        {
+            targetwidget->move(0,targetwidget->y()+20);
+            currentwidget->move(0,currentwidget->y()+20);
+            if(currentwidget->y()>=80)
+            {
+                timer->stop();
+            }
+        }
+        else if(direction==2)
+        {
+            targetwidget->move(targetwidget->x()+20,80);
+            currentwidget->move(currentwidget->x()+20,80);
+            if(currentwidget->x()>1000)
+            {
+                timer->stop();
+            }
+        }
+        else if(direction==3)
+        {
+            targetwidget->move(targetwidget->x()+20,80);
+            currentwidget->move(currentwidget->x()+20,80);
+            if(currentwidget->x()>1000)
+            {
+                timer->stop();
+            }
+        }
 
+    });
+    connect();
     connect(this,&Widget::gotologin,[=](){
-        login->show();qDebug()<<"did";
+//        currentwidget->hide();
+        targetwidget=login;
+//        targetwidget->show();
+        change_widget();
+        currentwidget=login;
     });
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
     connect(this,&Widget::gotoregister,[=](){
-
-        login->hide();
-        reg->show();
+        currentwidget->hide();
+        targetwidget=reg;
+        targetwidget->show();
+        currentwidget=reg;
+//        login->hide();
+//        reg->show();
     });
     connect(this,&Widget::gotoperson,[=](){
 
@@ -118,6 +158,7 @@ void Widget::initialUser()
         username=readLine(f);
         password=readLine(f);
         f.close();
+
     }
     else regestered=false;
 }
@@ -154,4 +195,27 @@ void Widget::paintEvent(QPaintEvent*)
     p.setPen(pen);
     p.drawRect(0,0,width()-1,height()-1);
     p.end();
+}
+
+void Widget::change_widget()
+{
+
+    direction=rand()%4;
+    if(direction==0)
+    {
+        targetwidget->move(0,800);
+    }
+    if(direction==1)
+    {
+        targetwidget->move(0,-720);
+    }
+    if(direction==2)
+    {
+        targetwidget->move(1000,0);
+    }
+    if(direction==3)
+    {
+        targetwidget->move(-1000,0);
+    }
+    timer->start(1);
 }
