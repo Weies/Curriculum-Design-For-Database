@@ -8,7 +8,7 @@
 #include<superbutton.h>
 #include<login.h>
 #include<register_widget.h>
-
+#include<person_widget.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -27,6 +27,8 @@ public:
     superButton* sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
+    person_widget* person;
+
     int direction;
     void change_widget();
     //superButton* btn;

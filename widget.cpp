@@ -30,6 +30,7 @@ QString readLine(QFile& f)
 
 Widget::Widget()
 {
+    srand(time(NULL)-16056e6);
     resize(1000,800);
     pick=new class pick(this);
     pick->move(0,80);
@@ -42,6 +43,9 @@ Widget::Widget()
     reg=new register_widget(this);reg->hide();
     reg->resize(1000,720);
     reg->move(0,80);
+    person=new person_widget(this);person->hide();
+    person->move(0,80);
+    person->resize(1000,720);
 //    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
 //    btn->resize(60,60);
 //    btn->move(400,400);
@@ -55,63 +59,68 @@ Widget::Widget()
         {
             targetwidget->move(0,targetwidget->y()-20);
             currentwidget->move(0,currentwidget->y()-20);
-            if(currentwidget->y()<=80)
+            if(targetwidget->y()<=80)
             {
                 timer->stop();
+                currentwidget->hide();
+                currentwidget=targetwidget;
             }
         }
         else if(direction==1)
         {
             targetwidget->move(0,targetwidget->y()+20);
             currentwidget->move(0,currentwidget->y()+20);
-            if(currentwidget->y()>=80)
+            if(targetwidget->y()>=80)
             {
                 timer->stop();
+                currentwidget->hide();
+                currentwidget=targetwidget;
             }
         }
         else if(direction==2)
         {
             targetwidget->move(targetwidget->x()+20,80);
             currentwidget->move(currentwidget->x()+20,80);
-            if(currentwidget->x()>1000)
+            if(targetwidget->x()<=0)
             {
                 timer->stop();
+                currentwidget->hide();
+                currentwidget=targetwidget;
             }
         }
         else if(direction==3)
         {
             targetwidget->move(targetwidget->x()+20,80);
             currentwidget->move(currentwidget->x()+20,80);
-            if(currentwidget->x()>1000)
+            if(targetwidget->x()>=0)
             {
                 timer->stop();
+                currentwidget->hide();
+                currentwidget=targetwidget;
             }
         }
+    });
 
-    });
-    connect();
     connect(this,&Widget::gotologin,[=](){
-//        currentwidget->hide();
         targetwidget=login;
-//        targetwidget->show();
         change_widget();
-        currentwidget=login;
     });
+
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
-    connect(this,&Widget::gotoregister,[=](){
-        currentwidget->hide();
-        targetwidget=reg;
-        targetwidget->show();
-        currentwidget=reg;
-//        login->hide();
-//        reg->show();
-    });
-    connect(this,&Widget::gotoperson,[=](){
 
+    connect(this,&Widget::gotoregister,[=](){
+        targetwidget=reg;
+        change_widget();
     });
+
+    connect(this,&Widget::gotoperson,[=](){
+        targetwidget=person;
+        change_widget();
+    });
+
     control=new superButton("控制台");
     sites=new superButton("网站列表");
     QLabel* l=new QLabel("|");
@@ -133,7 +142,7 @@ Widget::Widget()
     }
 
     connect(pick->buy,&QToolButton::clicked,[=](){
-        timer->start(1);
+        emit gotologin();qDebug()<<"did";
     });
 
     // 如果点击点击了头像，注册了查看详细用户的详细信息
@@ -199,7 +208,7 @@ void Widget::paintEvent(QPaintEvent*)
 
 void Widget::change_widget()
 {
-
+    targetwidget->show();
     direction=rand()%4;
     if(direction==0)
     {

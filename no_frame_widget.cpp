@@ -10,8 +10,8 @@ No_Frame_Widget::No_Frame_Widget(QWidget *parent)
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint);
     close=new superButton(QPixmap(":/icon/close.png"),this);//初始化关闭按钮
-    close->setPixSize(30,30);
-    close->resize(60,40);
+    close->setPixSize(34,34);
+    close->resize(60,40);close->setMouseInColor(QColor(250,100,100));
 
     min=new superButton(QPixmap(":/icon/min.png"),this);
     min->setPixSize(35,35);
