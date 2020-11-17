@@ -79,8 +79,8 @@ Widget::Widget()
         }
         else if(direction==2)
         {
-            targetwidget->move(targetwidget->x()+20,80);
-            currentwidget->move(currentwidget->x()+20,80);
+            targetwidget->move(targetwidget->x()-20,80);
+            currentwidget->move(currentwidget->x()-20,80);
             if(targetwidget->x()<=0)
             {
                 timer->stop();
@@ -220,11 +220,11 @@ void Widget::change_widget()
     }
     if(direction==2)
     {
-        targetwidget->move(1000,0);
+        targetwidget->move(1000,80);
     }
     if(direction==3)
     {
-        targetwidget->move(-1000,0);
+        targetwidget->move(-1000,80);
     }
     timer->start(1);
 }
