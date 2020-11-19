@@ -101,23 +101,34 @@ Widget::Widget()
         }
     });
 
-    connect(this,&Widget::gotologin,[=](){
-        targetwidget=login;
-        change_widget();
-    });
+
 
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
 
+    portrait=new superButton(QPixmap(":/icon/un_reg_user.png"),this);
+    portrait->setPixSize(50,50);
+    portrait->move(950,40);portrait->resize(50,50);
+
+    connect(portrait,&superButton::Clicked,[=](){
+        emit gotoperson();
+    });
+    connect(this,&Widget::gotologin,[=](){
+        targetwidget=login;
+        change_widget();
+    });
     connect(this,&Widget::gotoregister,[=](){
         targetwidget=reg;
         change_widget();
     });
-
     connect(this,&Widget::gotoperson,[=](){
         targetwidget=person;
+        change_widget();
+    });
+    connect(this,&Widget::gotopick,[=](){
+        targetwidget=pick;
         change_widget();
     });
 
@@ -131,9 +142,7 @@ Widget::Widget()
     lay->addWidget(sites);
     connect(sites,&superButton::Clicked,this,[=](){sites->setMouseOutColor(QColor(100,100,255,50));});
 
-    portrait=new superButton(QPixmap(":/icon/un_reg_user.png"),this);
-    portrait->setPixSize(50,50);
-    portrait->move(950,40);portrait->resize(50,50);
+
     if(!regestered)
     portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
     else

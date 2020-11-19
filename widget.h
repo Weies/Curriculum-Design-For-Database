@@ -27,20 +27,21 @@ public:
     superButton* sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
-    person_widget* person;
+
 
     int direction;
     void change_widget();
     //superButton* btn;
-    pick* pick;//选择网站页面，已经写了
-    login* login;//登录页面
-    register_widget* reg;//注册页面
+    pick* pick;//选择网站页面，done
+    login* login;//登录页面,done
+    register_widget* reg;//注册页面，done
     QWidget* controlPanel;//控制面板页面
-    QWidget* usrinfo;//用户个人信息页面
+    person_widget* person;//用户个人信息页面
 signals:
     void gotologin();
     void gotoregister();
     void gotoperson();
+    void gotopick();
 };
 
 #endif // WIDGET_H
