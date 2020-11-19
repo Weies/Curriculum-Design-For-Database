@@ -64,6 +64,7 @@ Widget::Widget()
                 timer->stop();
                 currentwidget->hide();
                 currentwidget=targetwidget;
+                currentwidget->move(0,80);
             }
         }
         else if(direction==1)
@@ -75,6 +76,7 @@ Widget::Widget()
                 timer->stop();
                 currentwidget->hide();
                 currentwidget=targetwidget;
+                currentwidget->move(0,80);
             }
         }
         else if(direction==2)
@@ -86,6 +88,7 @@ Widget::Widget()
                 timer->stop();
                 currentwidget->hide();
                 currentwidget=targetwidget;
+                currentwidget->move(0,80);
             }
         }
         else if(direction==3)
@@ -97,6 +100,7 @@ Widget::Widget()
                 timer->stop();
                 currentwidget->hide();
                 currentwidget=targetwidget;
+                currentwidget->move(0,80);
             }
         }
     });
@@ -235,5 +239,5 @@ void Widget::change_widget()
     {
         targetwidget->move(-1000,90);
     }
-    timer->start(10);
+    timer->start(1);
 }
