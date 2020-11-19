@@ -22,18 +22,18 @@ No_Frame_Widget::No_Frame_Widget(QWidget *parent)
 
     connect(close,SIGNAL(Clicked()),SLOT(close()));
     connect(min,&superButton::Clicked,this,&No_Frame_Widget::showMinimized);
-    connect(max,&superButton::Clicked,this,[=](){
-        maxstate=!maxstate;
-        if(maxstate)
-        {
-            w=width();h=height();xx=x();yy=y();
-            this->move(0,0);this->resize(1920,1040);
-        }
-        else
-        {
-            resize(w,h);move(xx,yy);
-        }
-    });
+//    connect(max,&superButton::Clicked,this,[=](){
+//        maxstate=!maxstate;
+//        if(maxstate)
+//        {
+//            w=width();h=height();xx=x();yy=y();
+//            this->move(0,0);this->resize(1920,1040);
+//        }
+//        else
+//        {
+//            resize(w,h);move(xx,yy);
+//        }
+//    });
 }
 
 void No_Frame_Widget::resizeEvent(QResizeEvent *)

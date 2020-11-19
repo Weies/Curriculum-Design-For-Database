@@ -59,7 +59,7 @@ Widget::Widget()
         {
             targetwidget->move(0,targetwidget->y()-20);
             currentwidget->move(0,currentwidget->y()-20);
-            if(targetwidget->y()<=80)
+            if(targetwidget->y()<=90)
             {
                 timer->stop();
                 currentwidget->hide();
@@ -70,7 +70,7 @@ Widget::Widget()
         {
             targetwidget->move(0,targetwidget->y()+20);
             currentwidget->move(0,currentwidget->y()+20);
-            if(targetwidget->y()>=80)
+            if(targetwidget->y()>=90)
             {
                 timer->stop();
                 currentwidget->hide();
@@ -106,7 +106,7 @@ Widget::Widget()
         change_widget();
     });
 
-    header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-60,50);
+    header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-50,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
     lay->setMargin(0);
     header->setStyleSheet("background-color:rgba(255,255,255,50)");
@@ -121,15 +121,15 @@ Widget::Widget()
         change_widget();
     });
 
-    control=new superButton("控制台");
-    sites=new superButton("网站列表");
+    control=new superButton("控制台");control->setMinimumSize(470,50);
+    sites=new superButton("网站列表");sites->setMinimumSize(470,50);
     QLabel* l=new QLabel("|");
-    l->setMaximumWidth(10);
+    l->setMaximumWidth(4);
     l->setStyleSheet("background-color:transparent;");
-    lay->addWidget(control);
-    lay->addWidget(l);
     lay->addWidget(sites);
-    connect(sites,&superButton::Clicked,this,[=](){sites->setMouseOutColor(QColor(100,100,255,50));});
+    lay->addWidget(l);
+    lay->addWidget(control);
+    connect(sites,&superButton::Clicked,this,[=](){sites->setMouseOutColor(QColor(100,100,255,150));});
 
     portrait=new superButton(QPixmap(":/icon/un_reg_user.png"),this);
     portrait->setPixSize(50,50);
@@ -220,11 +220,11 @@ void Widget::change_widget()
     }
     if(direction==2)
     {
-        targetwidget->move(1000,80);
+        targetwidget->move(1000,90);
     }
     if(direction==3)
     {
-        targetwidget->move(-1000,80);
+        targetwidget->move(-1000,90);
     }
-    timer->start(1);
+    timer->start(10);
 }

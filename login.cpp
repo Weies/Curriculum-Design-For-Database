@@ -15,6 +15,7 @@ login::login(QWidget *parent) :
     connect(btn_register,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotoregister();
     });
+    ui->toolButton->setStyleSheet("color:blue");
 }
 
 login::~login()
