@@ -117,7 +117,7 @@ Widget::Widget()
     portrait->move(950,40);portrait->resize(50,50);
 
     connect(portrait,&superButton::Clicked,[=](){
-        emit gotoperson();
+        if(targetwidget!=person)emit gotoperson();
     });
     connect(this,&Widget::gotologin,[=](){
         targetwidget=login;
