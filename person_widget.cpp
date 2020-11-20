@@ -14,7 +14,7 @@ person_widget::person_widget(QWidget *parent) :
     comboBox_type->move(460,375);
     btn_commit=new superButton("提交",this);btn_commit->resize(250,40);
     btn_return=new superButton("返回",this);btn_return->resize(250,40);
-    btn_commit->move(300,700);btn_return->move(500,700);
+    btn_commit->move(300,600);btn_return->move(500,600);
     btn_commit->setMouseOutColor(QColor(4,186,251));
     btn_return->setMouseOutColor(QColor(4,186,251));
     connect(btn_commit,&superButton::Clicked,[=](){

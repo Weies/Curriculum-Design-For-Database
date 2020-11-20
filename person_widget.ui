@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>60</y>
+     <x>350</x>
+     <y>30</y>
      <width>72</width>
      <height>15</height>
     </rect>
@@ -29,28 +29,57 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>90</y>
+     <x>220</x>
+     <y>60</y>
      <width>371</width>
      <height>491</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="1">
+    <item row="10" column="1">
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="12" column="1">
+     <spacer name="verticalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="7" column="1">
      <widget class="QLineEdit" name="truename"/>
     </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="phonenum"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>账号：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="1">
-     <spacer name="verticalSpacer_7">
+    <item row="16" column="1">
+     <spacer name="verticalSpacer_8">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -63,6 +92,62 @@
      </spacer>
     </item>
     <item row="8" column="1">
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>证件类型：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="phonenum"/>
+    </item>
+    <item row="6" column="1">
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="15" column="1">
+     <widget class="QLineEdit" name="address"/>
+    </item>
+    <item row="13" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>证件号：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>性别：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="1">
+     <widget class="QLineEdit" name="beian"/>
+    </item>
+    <item row="9" column="1">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string/>
@@ -85,123 +170,48 @@
       </layout>
      </widget>
     </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>性别：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1">
-     <widget class="QLineEdit" name="idnum"/>
-    </item>
-    <item row="5" column="1">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="1">
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="14" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>住址：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>用户名：</string>
       </property>
      </widget>
     </item>
-    <item row="16" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>备案备注：</string>
-      </property>
-     </widget>
+    <item row="13" column="1">
+     <widget class="QLineEdit" name="idnum"/>
     </item>
-    <item row="11" column="1">
-     <spacer name="verticalSpacer_6">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="username"/>
-    </item>
-    <item row="7" column="1">
-     <spacer name="verticalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="6" column="0">
+    <item row="7" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>真实姓名：</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="1">
-     <spacer name="verticalSpacer_5">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="username"/>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_id">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>账号*****</string>
+       <string>账号：</string>
       </property>
      </widget>
     </item>
-    <item row="14" column="1">
-     <widget class="QLineEdit" name="address"/>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>手机号：</string>
+      </property>
+     </widget>
     </item>
-    <item row="3" column="1">
+    <item row="15" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>住址：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -214,32 +224,8 @@
       </property>
      </spacer>
     </item>
-    <item row="16" column="1">
-     <widget class="QLineEdit" name="beian"/>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>证件类型：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>手机号：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="0">
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>证件号：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="1">
-     <spacer name="verticalSpacer_8">
+    <item row="14" column="1">
+     <spacer name="verticalSpacer_7">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -250,6 +236,20 @@
        </size>
       </property>
      </spacer>
+    </item>
+    <item row="17" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>备案备注：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_id">
+      <property name="text">
+       <string>账号*****</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
