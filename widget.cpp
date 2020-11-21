@@ -201,10 +201,10 @@ QSqlDatabase& Widget::opendb()
 {
     static QSqlDatabase dbase=QSqlDatabase::addDatabase("QMYSQL");
     dbase.setPort(3366);
-    dbase.setHostName("123.57.26.158");
+    dbase.setHostName("101.132.173.39");
     dbase.setPassword("123456");
-    dbase.setUserName("root");
-    dbase.setDatabaseName("mydb");
+    dbase.setUserName("teleconnect");
+    dbase.setDatabaseName("EasyWeberDB");
     return dbase;
 }
 
