@@ -9,6 +9,7 @@
 #include<login.h>
 #include<register_widget.h>
 #include<person_widget.h>
+#include<control.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -23,8 +24,8 @@ public:
     QSqlTableModel *model;
     superButton* portrait;
     QWidget* header;
-    superButton* control;
-    superButton* sites;
+    superButton* btn_control;
+    superButton* btn_sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
 
@@ -35,13 +36,14 @@ public:
     pick* pick;//选择网站页面，done
     login* login;//登录页面,done
     register_widget* reg;//注册页面，done
-    QWidget* controlPanel;//控制面板页面
-    person_widget* person;//用户个人信息页面
+    control* controlPanel;//控制面板页面
+    person_widget* person;//用户个人信息页面，done
 signals:
     void gotologin();
     void gotoregister();
     void gotoperson();
     void gotopick();
+    void gotocontrol();
 };
 
 #endif // WIDGET_H

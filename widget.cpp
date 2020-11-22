@@ -15,6 +15,7 @@
 #include<QDebug>
 QSqlDatabase db;
 
+bool is_admin=false;
 bool regestered=false;
 QString username;
 QString password;
@@ -46,6 +47,9 @@ Widget::Widget()
     person=new person_widget(this);person->hide();
     person->move(0,80);
     person->resize(1000,720);
+    controlPanel=new control(this);controlPanel->hide();
+    controlPanel->resize(1000,720);
+    controlPanel->move(0,80);
 //    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
 //    btn->resize(60,60);
 //    btn->move(400,400);
@@ -105,7 +109,8 @@ Widget::Widget()
         }
     });
 
-
+    btn_control=new superButton("控制台");btn_control->setMinimumSize(470,50);
+    btn_sites=new superButton("网站列表");btn_sites->setMinimumSize(470,50);
 
     header=new QHeaderView(Qt::Horizontal,this);header->move(0,40);header->resize(width()-50,50);
     QHBoxLayout *lay=new QHBoxLayout(header);
@@ -116,6 +121,20 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
+    connect(btn_sites,&superButton::Clicked,[=](){
+        if(targetwidget!=pick)emit gotopick();
+    });
+    connect(this,&Widget::gotopick,[=](){
+         targetwidget=pick;
+         change_widget();
+    });
+    connect(btn_control,&superButton::Clicked,[=](){
+        if(targetwidget!=controlPanel)emit gotocontrol();
+    });
+    connect(this,&Widget::gotocontrol,[=](){
+         targetwidget=controlPanel;
+         change_widget();
+    });
     connect(portrait,&superButton::Clicked,[=](){
         if(targetwidget!=person)emit gotoperson();
     });
@@ -136,15 +155,14 @@ Widget::Widget()
         change_widget();
     });
 
-    control=new superButton("控制台");control->setMinimumSize(470,50);
-    sites=new superButton("网站列表");sites->setMinimumSize(470,50);
+
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
     l->setStyleSheet("background-color:transparent;");
-    lay->addWidget(sites);
+    lay->addWidget(btn_sites);
     lay->addWidget(l);
-    lay->addWidget(control);
-    connect(sites,&superButton::Clicked,this,[=](){sites->setMouseOutColor(QColor(100,100,255,150));});
+    lay->addWidget(btn_control);
+    connect(btn_sites,&superButton::Clicked,this,[=](){btn_sites->setMouseOutColor(QColor(100,100,255,150));});
 
 
     if(!regestered)
@@ -194,7 +212,7 @@ void Widget::loadinfo()
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
-    connect(pick->searchbutton,&QToolButton::clicked,[=](){model->setFilter("网站 like '%"+pick->input->text()+"%'");});
+    connect(pick->searchbutton,&QToolButton::clicked,[=](){model->setFilter("dm_name like '%"+pick->input->text()+"%'");});
 }
 
 QSqlDatabase& Widget::opendb()

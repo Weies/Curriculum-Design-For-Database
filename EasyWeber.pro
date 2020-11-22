@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    control.cpp \
     line.cpp \
     login.cpp \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    control.h \
     line.h \
     login.h \
     no_frame_widget.h \
@@ -36,6 +38,7 @@ HEADERS += \
     widget.h
 
 FORMS += \
+    control.ui \
     login.ui \
     no_frame_widget.ui \
     person_widget.ui \
