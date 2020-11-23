@@ -11,6 +11,8 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     view=ui->tableView;view->setShowGrid(0);
     view->setStyleSheet("background-color:rgba(255,255,255,100);border:0px;");
     view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    view->horizontalHeader()->setSectionsClickable(false);
+    view->setMinimumWidth(800);
     view->installEventFilter(this);
     buy=new QToolButton(this);buy->move(800,650);buy->setText("立即购买");
     buy->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");

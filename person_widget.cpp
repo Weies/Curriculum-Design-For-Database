@@ -20,12 +20,13 @@ person_widget::person_widget(QWidget *parent) :
     btn_commit->setMouseOutColor(QColor(4,186,251));
     btn_return->setMouseOutColor(QColor(4,186,251));
     btn_commit->setEnabled(false);
-    ui->username->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
-    ui->phonenum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
-    ui->idnum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
-    ui->beian->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
-    ui->address->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
-    ui->truename->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+    //this->setStyleSheet("QLineEdit{border :1px ;background-color: rgba(0,0,0,0)}");
+//    ui->username->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+//    ui->phonenum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+//    ui->idnum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+//    ui->beian->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+//    ui->address->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
+//    ui->truename->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
     connect(btn_commit,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotopick();
     });
