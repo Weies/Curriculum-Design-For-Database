@@ -20,7 +20,7 @@ person_widget::person_widget(QWidget *parent) :
     btn_commit->setMouseOutColor(QColor(4,186,251));
     btn_return->setMouseOutColor(QColor(4,186,251));
     btn_commit->setEnabled(false);
-    //this->setStyleSheet("QLineEdit{border :1px ;background-color: rgba(0,0,0,0)}");
+    this->setStyleSheet("QLineEdit{border :1px ;background-color: rgba(0,0,0,0)}");
 //    ui->username->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
 //    ui->phonenum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
 //    ui->idnum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");

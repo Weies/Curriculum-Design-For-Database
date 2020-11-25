@@ -50,6 +50,9 @@ Widget::Widget()
     controlPanel=new control(this);controlPanel->hide();
     controlPanel->resize(1000,720);
     controlPanel->move(0,80);
+    purch=new purchase(this);purch->hide();
+    purch->resize(1000,720);
+    purch->move(0,80);
 //    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
 //    btn->resize(60,60);
 //    btn->move(400,400);
@@ -121,34 +124,47 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
+
     connect(btn_sites,&superButton::Clicked,[=](){
-        if(targetwidget!=pick)emit gotopick();
+        if(currentwidget!=pick)emit gotopick();
     });
     connect(this,&Widget::gotopick,[=](){
-         targetwidget=pick;
-         change_widget();
+        targetwidget=pick;
+        change_widget();
     });
     connect(btn_control,&superButton::Clicked,[=](){
-        if(targetwidget!=controlPanel)emit gotocontrol();
+        if(currentwidget!=controlPanel)emit gotocontrol();
     });
     connect(this,&Widget::gotocontrol,[=](){
-         targetwidget=controlPanel;
-         change_widget();
+        targetwidget=controlPanel;
+        change_widget();
+    });
+    connect(this,&Widget::gotopurchase,[=](){
+        targetwidget=purch;
+        change_widget();
     });
     connect(portrait,&superButton::Clicked,[=](){
-        if(targetwidget!=person)emit gotoperson();
+        if(currentwidget!=person)emit gotoperson();
     });
     connect(this,&Widget::gotologin,[=](){
-        targetwidget=login;
-        change_widget();
+
     });
     connect(this,&Widget::gotoregister,[=](){
         targetwidget=reg;
         change_widget();
     });
+
     connect(this,&Widget::gotoperson,[=](){
-        targetwidget=person;
-        change_widget();
+        if(regestered)
+        {
+            targetwidget=person;
+            change_widget();
+        }
+        else if(currentwidget!=login)
+        {
+            targetwidget=login;
+            change_widget();
+        }
     });
     connect(this,&Widget::gotopick,[=](){
         targetwidget=pick;
@@ -172,10 +188,18 @@ Widget::Widget()
         //设置用户的头像
     }
 
-    connect(pick->buy,&QToolButton::clicked,[=](){
-        emit gotologin();qDebug()<<"did";
-    });
-
+    if(regestered)
+    {
+        connect(pick->buy,&QToolButton::clicked,[=](){
+            emit gotopurchase();
+        });
+    }
+    else
+    {
+        connect(pick->buy,&QToolButton::clicked,[=](){
+            emit gotologin();
+        });
+    }
     // 如果点击点击了头像，注册了查看详细用户的详细信息
     //未注册弹出注册页面
 

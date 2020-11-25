@@ -10,6 +10,7 @@
 #include<register_widget.h>
 #include<person_widget.h>
 #include<control.h>
+#include<purchase.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -30,6 +31,7 @@ public:
     QWidget* targetwidget;
 
 
+
     int direction;
     void change_widget();
     //superButton* btn;
@@ -38,12 +40,14 @@ public:
     register_widget* reg;//注册页面，done
     control* controlPanel;//控制面板页面
     person_widget* person;//用户个人信息页面，done
+    purchase* purch;
 signals:
     void gotologin();
     void gotoregister();
     void gotoperson();
     void gotopick();
     void gotocontrol();
+    void gotopurchase();
 };
 
 #endif // WIDGET_H

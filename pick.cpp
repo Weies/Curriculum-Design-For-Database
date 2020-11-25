@@ -4,6 +4,7 @@
 #include<QDebug>
 extern QSqlDatabase db;
 #include<QKeyEvent>
+extern bool is_admin;
 pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
 {
     ui->setupUi(this);
@@ -16,7 +17,7 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     view->installEventFilter(this);
     buy=new QToolButton(this);buy->move(800,650);buy->setText("立即购买");
     buy->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");
-    view->setEditTriggers(QTableView::NoEditTriggers);
+    if(!is_admin)view->setEditTriggers(QTableView::NoEditTriggers);
     input=new Line(this);input->move(20,45);input->resize(800,50);input->setText("请输入您心仪的网站名称");
     searchbutton=new QToolButton(this);searchbutton->move(850,50);searchbutton->setText("搜索");
     searchbutton->setStyleSheet("width:100px;height:40px;background-color:rgb(53,150,255);border-radius:5px;");

@@ -23,6 +23,7 @@ SOURCES += \
     no_frame_widget.cpp \
     person_widget.cpp \
     pick.cpp \
+    purchase.cpp \
     register_widget.cpp \
     widget.cpp
 
@@ -33,6 +34,7 @@ HEADERS += \
     no_frame_widget.h \
     person_widget.h \
     pick.h \
+    purchase.h \
     register_widget.h \
     superbutton.h \
     widget.h
@@ -43,6 +45,7 @@ FORMS += \
     no_frame_widget.ui \
     person_widget.ui \
     pick.ui \
+    purchase.ui \
     register_widget.ui
 
 # Default rules for deployment.
