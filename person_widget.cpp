@@ -1,7 +1,11 @@
 #include "person_widget.h"
 #include "ui_person_widget.h"
 #include<widget.h>
-
+extern QSqlDatabase db;
+extern bool regestered;
+extern QString ID;
+extern QString username;
+extern QString password;
 person_widget::person_widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::person_widget)
@@ -13,7 +17,7 @@ person_widget::person_widget(QWidget *parent) :
     comboBox_type->addItems(QStringList()<<"居民身份证"<<"港澳通行证"<<"护照");
     comboBox_type->setAttribute(Qt::WA_TransparentForMouseEvents,false);
     comboBox_type->installEventFilter(this);
-    comboBox_type->move(480,375);
+    comboBox_type->move(480,355);
     btn_commit=new superButton("提交",this);btn_commit->resize(250,40);
     btn_return=new superButton("返回",this);btn_return->resize(250,40);
     btn_commit->move(220,650);btn_return->move(530,650);
@@ -21,6 +25,12 @@ person_widget::person_widget(QWidget *parent) :
     btn_return->setMouseOutColor(QColor(4,186,251));
     btn_commit->setEnabled(false);
     this->setStyleSheet("QLineEdit{border :1px ;background-color: rgba(0,0,0,0)}");
+    if(regestered)
+    {
+        qDebug()<<ID;
+        ui->userid->setText(ID);
+    }
+
 //    ui->username->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
 //    ui->phonenum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");
 //    ui->idnum->setStyleSheet("border :1px ;background-color: rgba(0,0,0,0)");

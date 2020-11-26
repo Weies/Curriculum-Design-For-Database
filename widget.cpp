@@ -125,6 +125,10 @@ Widget::Widget()
     portrait->move(950,40);portrait->resize(50,50);
 
 
+    connect(pick->buy,&QToolButton::clicked,[=](){
+        if(regestered)emit gotopurchase();
+        else emit gotologin();
+    });
     connect(btn_sites,&superButton::Clicked,[=](){
         if(currentwidget!=pick)emit gotopick();
     });
@@ -147,7 +151,8 @@ Widget::Widget()
         if(currentwidget!=person)emit gotoperson();
     });
     connect(this,&Widget::gotologin,[=](){
-
+        targetwidget=login;
+        change_widget();
     });
     connect(this,&Widget::gotoregister,[=](){
         targetwidget=reg;
@@ -180,26 +185,15 @@ Widget::Widget()
     lay->addWidget(btn_control);
     connect(btn_sites,&superButton::Clicked,this,[=](){btn_sites->setMouseOutColor(QColor(100,100,255,150));});
 
+    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
+//    if(!regestered)
+//    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
+//    else
+//    {
+//        //设置用户的头像
+//    }
 
-    if(!regestered)
-    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
-    else
-    {
-        //设置用户的头像
-    }
 
-    if(regestered)
-    {
-        connect(pick->buy,&QToolButton::clicked,[=](){
-            emit gotopurchase();
-        });
-    }
-    else
-    {
-        connect(pick->buy,&QToolButton::clicked,[=](){
-            emit gotologin();
-        });
-    }
     // 如果点击点击了头像，注册了查看详细用户的详细信息
     //未注册弹出注册页面
 
@@ -213,18 +207,18 @@ Widget::Widget()
 
 void Widget::initialUser()
 {
-    QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
-    if(f.exists())
-    {
-        regestered=true;
-        f.open(QIODevice::ReadOnly);
-        ID=readLine(f);
-        username=readLine(f);
-        password=readLine(f);
-        f.close();
+//    QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
+//    if(f.exists())
+//    {
+//        regestered=true;
+//        f.open(QIODevice::ReadOnly);
+//        ID=readLine(f);
+//        username=readLine(f);
+//        password=readLine(f);
+//        f.close();
 
-    }
-    else regestered=false;
+//    }
+//    else regestered=false;
 }
 
 void Widget::loadinfo()
