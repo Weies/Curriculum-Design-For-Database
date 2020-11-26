@@ -11,6 +11,7 @@
 #include<person_widget.h>
 #include<control.h>
 #include<purchase.h>
+#include<QModelIndex>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -31,7 +32,7 @@ public:
     QWidget* targetwidget;
 
 
-
+    QModelIndex currentindex;
     int direction;
     void change_widget();
     //superButton* btn;

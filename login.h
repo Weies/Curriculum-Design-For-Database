@@ -14,10 +14,12 @@ class login : public QWidget
 public:
     explicit login(QWidget *parent = nullptr);
     ~login();
+    void reLoadUser();
     superButton *btn_loginin;
     superButton *btn_register;
 private:
     Ui::login *ui;
 };
+
 
 #endif // LOGIN_H

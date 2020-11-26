@@ -14,6 +14,7 @@ class purchase : public QWidget
 public:
     explicit purchase(QWidget *parent = nullptr);
     ~purchase();
+    void update();
     superButton *btn_commit;
     superButton *btn_return;
 private:

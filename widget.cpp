@@ -13,6 +13,7 @@
 #include<QLabel>
 #include<QHBoxLayout>
 #include<QDebug>
+#include<QMessageBox>
 QSqlDatabase db;
 
 bool is_admin=false;
@@ -33,11 +34,16 @@ Widget::Widget()
 {
     srand(time(NULL)-16056e6);
     resize(1000,800);
+    db=opendb();
+    if(!db.open())
+    {
+        QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
+    }
     pick=new class pick(this);
     pick->move(0,80);
     currentwidget=pick;
     //pick->hide();
-    initialUser();
+
     login= new class login(this);login->hide();
     login->resize(1000,720);
     login->move(0,80);
@@ -57,6 +63,11 @@ Widget::Widget()
 //    btn->resize(60,60);
 //    btn->move(400,400);
 
+    initialUser();
+    loadinfo();
+
+
+
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer=new QTimer(this);
@@ -64,8 +75,8 @@ Widget::Widget()
     connect(timer,&QTimer::timeout,[=](){
         if(direction==0)
         {
-            targetwidget->move(0,targetwidget->y()-20);
-            currentwidget->move(0,currentwidget->y()-20);
+            targetwidget->move(0,targetwidget->y()-40);
+            currentwidget->move(0,currentwidget->y()-40);
             if(targetwidget->y()<=90)
             {
                 timer->stop();
@@ -76,8 +87,8 @@ Widget::Widget()
         }
         else if(direction==1)
         {
-            targetwidget->move(0,targetwidget->y()+20);
-            currentwidget->move(0,currentwidget->y()+20);
+            targetwidget->move(0,targetwidget->y()+40);
+            currentwidget->move(0,currentwidget->y()+40);
             if(targetwidget->y()>=90)
             {
                 timer->stop();
@@ -88,8 +99,8 @@ Widget::Widget()
         }
         else if(direction==2)
         {
-            targetwidget->move(targetwidget->x()-20,80);
-            currentwidget->move(currentwidget->x()-20,80);
+            targetwidget->move(targetwidget->x()-40,80);
+            currentwidget->move(currentwidget->x()-40,80);
             if(targetwidget->x()<=0)
             {
                 timer->stop();
@@ -100,8 +111,8 @@ Widget::Widget()
         }
         else if(direction==3)
         {
-            targetwidget->move(targetwidget->x()+20,80);
-            currentwidget->move(currentwidget->x()+20,80);
+            targetwidget->move(targetwidget->x()+40,80);
+            currentwidget->move(currentwidget->x()+40,80);
             if(targetwidget->x()>=0)
             {
                 timer->stop();
@@ -126,7 +137,16 @@ Widget::Widget()
 
 
     connect(pick->buy,&QToolButton::clicked,[=](){
-        if(regestered)emit gotopurchase();
+        if(regestered)
+        {
+            if(pick->view->currentIndex().row()>=0)
+            {
+                currentindex=pick->view->currentIndex();
+                emit gotopurchase();
+                purch->update();
+            }
+            else QMessageBox::critical(this,"critical","请先选中域名");
+        }
         else emit gotologin();
     });
     connect(btn_sites,&superButton::Clicked,[=](){
@@ -207,18 +227,20 @@ Widget::Widget()
 
 void Widget::initialUser()
 {
-//    QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
-//    if(f.exists())
-//    {
-//        regestered=true;
-//        f.open(QIODevice::ReadOnly);
-//        ID=readLine(f);
-//        username=readLine(f);
-//        password=readLine(f);
-//        f.close();
 
-//    }
-//    else regestered=false;
+    QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
+    if(f.exists())
+    {
+        regestered=true;
+        f.open(QIODevice::ReadOnly);
+        ID=readLine(f);
+        username=readLine(f);
+        password=readLine(f);
+        f.close();
+        login->reLoadUser();
+    }
+    else regestered=false;
+
 }
 
 void Widget::loadinfo()

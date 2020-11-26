@@ -13,14 +13,6 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(":/icon/emoji_01.png"));
     Widget w;
     w.show();
-    db=w.opendb();
-    if(!db.open())
-    {
-        QMessageBox::warning(&w,"Failed","Failed to connect to server:"+db.lastError().text());
-    }
-    else
-    {
-        w.loadinfo();
-    }
+
     return a.exec();
 }

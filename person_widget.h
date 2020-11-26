@@ -16,6 +16,8 @@ public:
     ~person_widget();
     QComboBox* comboBox_type;
     bool eventFilter(QObject* ,QEvent*);
+    void initialize();
+    void update();
     superButton *btn_commit;
     superButton *btn_return;
 private:
