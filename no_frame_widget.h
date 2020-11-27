@@ -20,7 +20,7 @@ public:
     superButton* close;//关闭
     superButton* min;//最小化
     superButton* max;//最大化
-
+    bool movable=true;
 private:
     int w=0;int h=0;//最大化之前的宽度和高度
     int xx=0;int yy=0;

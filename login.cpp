@@ -65,7 +65,6 @@ void login::reLoadUser()
     else
     {
         while(query.next())password_str1=query.value(0).toString();
-        qDebug()<<str;
         if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密码错误");
         else if(password_str==password_str1){
             regestered=true;

@@ -35,14 +35,11 @@ Widget::Widget()
     srand(time(NULL)-16056e6);
     resize(1000,800);
     db=opendb();
-    if(!db.open())
-    {
-        QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
-    }
+    if(!db.open())QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
+
     pick=new class pick(this);
     pick->move(0,80);
     currentwidget=pick;
-    //pick->hide();
 
     login= new class login(this);login->hide();
     login->resize(1000,720);
@@ -59,67 +56,59 @@ Widget::Widget()
     purch=new purchase(this);purch->hide();
     purch->resize(1000,720);
     purch->move(0,80);
-//    btn=new superButton("hhs",QPixmap(":/icon/un_reg_user.png"),this);
-//    btn->resize(60,60);
-//    btn->move(400,400);
 
     initialUser();
     loadinfo();
 
-
-
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
-    timer=new QTimer(this);
+    timer0=new QTimer(this);
+    timer1=new QTimer(this);
+    timer2=new QTimer(this);
+    timer3=new QTimer(this);
 
-    connect(timer,&QTimer::timeout,[=](){
-        if(direction==0)
+    connect(timer0,&QTimer::timeout,[=](){
+        targetwidget->move(0,targetwidget->y()-40);
+        currentwidget->move(0,currentwidget->y()-40);
+        if(targetwidget->y()<=90)
         {
-            targetwidget->move(0,targetwidget->y()-40);
-            currentwidget->move(0,currentwidget->y()-40);
-            if(targetwidget->y()<=90)
-            {
-                timer->stop();
-                currentwidget->hide();
-                currentwidget=targetwidget;
-                currentwidget->move(0,80);
-            }
+            timer0->stop();
+            currentwidget->hide();
+            currentwidget=targetwidget;
+            currentwidget->move(0,80);
         }
-        else if(direction==1)
+    });
+    connect(timer1,&QTimer::timeout,[=](){
+        targetwidget->move(0,targetwidget->y()+40);
+        currentwidget->move(0,currentwidget->y()+40);
+        if(targetwidget->y()>=90)
         {
-            targetwidget->move(0,targetwidget->y()+40);
-            currentwidget->move(0,currentwidget->y()+40);
-            if(targetwidget->y()>=90)
-            {
-                timer->stop();
-                currentwidget->hide();
-                currentwidget=targetwidget;
-                currentwidget->move(0,80);
-            }
+            timer1->stop();
+            currentwidget->hide();
+            currentwidget=targetwidget;
+            currentwidget->move(0,80);
         }
-        else if(direction==2)
+    });
+    connect(timer2,&QTimer::timeout,[=](){
+        targetwidget->move(targetwidget->x()-40,80);
+        currentwidget->move(currentwidget->x()-40,80);
+        if(targetwidget->x()<=0)
         {
-            targetwidget->move(targetwidget->x()-40,80);
-            currentwidget->move(currentwidget->x()-40,80);
-            if(targetwidget->x()<=0)
-            {
-                timer->stop();
-                currentwidget->hide();
-                currentwidget=targetwidget;
-                currentwidget->move(0,80);
-            }
+            timer2->stop();
+            currentwidget->hide();
+            currentwidget=targetwidget;
+            currentwidget->move(0,80);
         }
-        else if(direction==3)
+    });
+    connect(timer3,&QTimer::timeout,[=](){
+        targetwidget->move(targetwidget->x()+40,80);
+        currentwidget->move(currentwidget->x()+40,80);
+        if(targetwidget->x()>=0)
         {
-            targetwidget->move(targetwidget->x()+40,80);
-            currentwidget->move(currentwidget->x()+40,80);
-            if(targetwidget->x()>=0)
-            {
-                timer->stop();
-                currentwidget->hide();
-                currentwidget=targetwidget;
-                currentwidget->move(0,80);
-            }
+            timer3->stop();
+            currentwidget->hide();
+            currentwidget=targetwidget;
+            currentwidget->move(0,80);
         }
     });
 
@@ -135,29 +124,34 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
-
+    /*连接按钮*/
     connect(pick->buy,&QToolButton::clicked,[=](){
         if(regestered)
         {
             if(pick->view->currentIndex().row()>=0)
             {
-                currentindex=pick->view->currentIndex();
+                QSqlRecord reco=model->record(pick->view->currentIndex().row());
+                purch->update(&reco);
                 emit gotopurchase();
-                purch->update();
             }
             else QMessageBox::critical(this,"critical","请先选中域名");
         }
         else emit gotologin();
     });
+    connect(btn_control,&superButton::Clicked,[=](){
+        if(currentwidget!=controlPanel)emit gotocontrol();
+    });
+    connect(portrait,&superButton::Clicked,[=](){
+        if(currentwidget!=person)emit gotoperson();
+    });
     connect(btn_sites,&superButton::Clicked,[=](){
         if(currentwidget!=pick)emit gotopick();
     });
+
+    /*连接goto,切换窗口*/
     connect(this,&Widget::gotopick,[=](){
         targetwidget=pick;
         change_widget();
-    });
-    connect(btn_control,&superButton::Clicked,[=](){
-        if(currentwidget!=controlPanel)emit gotocontrol();
     });
     connect(this,&Widget::gotocontrol,[=](){
         targetwidget=controlPanel;
@@ -167,9 +161,6 @@ Widget::Widget()
         targetwidget=purch;
         change_widget();
     });
-    connect(portrait,&superButton::Clicked,[=](){
-        if(currentwidget!=person)emit gotoperson();
-    });
     connect(this,&Widget::gotologin,[=](){
         targetwidget=login;
         change_widget();
@@ -178,7 +169,6 @@ Widget::Widget()
         targetwidget=reg;
         change_widget();
     });
-
     connect(this,&Widget::gotoperson,[=](){
         if(regestered)
         {
@@ -191,11 +181,6 @@ Widget::Widget()
             change_widget();
         }
     });
-    connect(this,&Widget::gotopick,[=](){
-        targetwidget=pick;
-        change_widget();
-    });
-
 
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
@@ -205,29 +190,16 @@ Widget::Widget()
     lay->addWidget(btn_control);
     connect(btn_sites,&superButton::Clicked,this,[=](){btn_sites->setMouseOutColor(QColor(100,100,255,150));});
 
-    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
-//    if(!regestered)
-//    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
-//    else
-//    {
-//        //设置用户的头像
-//    }
-
-
-    // 如果点击点击了头像，注册了查看详细用户的详细信息
-    //未注册弹出注册页面
-
-    //点击了注册按钮
-//    if(!regestered)
-//    {
-//        // 注册页面
-//    }
-//    else { /*网站详细信息,付费页面*/ };
+    if(!regestered)
+    portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像
+    else
+    {
+        portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
+    }
 }
 
-void Widget::initialUser()
+void Widget::initialUser()//读文件，自动为用户登录
 {
-
     QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
     if(f.exists())
     {
@@ -240,7 +212,6 @@ void Widget::initialUser()
         login->reLoadUser();
     }
     else regestered=false;
-
 }
 
 void Widget::loadinfo()
@@ -283,19 +254,18 @@ void Widget::change_widget()
     direction=rand()%4;
     if(direction==0)
     {
-        targetwidget->move(0,800);
+        targetwidget->move(0,800);timer0->start(1);
     }
     if(direction==1)
     {
-        targetwidget->move(0,-720);
+        targetwidget->move(0,-720);timer1->start(1);
     }
     if(direction==2)
     {
-        targetwidget->move(1000,90);
+        targetwidget->move(1000,90);timer2->start(1);
     }
     if(direction==3)
     {
-        targetwidget->move(-1000,90);
+        targetwidget->move(-1000,90);timer3->start(1);
     }
-    timer->start(1);
 }

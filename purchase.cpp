@@ -1,10 +1,10 @@
 #include "purchase.h"
 #include "ui_purchase.h"
-#include<widget.h>
+
 extern bool regestered;
 #include<QSqlRecord>
 purchase::purchase(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), parent(parent),
     ui(new Ui::purchase)
 {
     ui->setupUi(this);
@@ -25,14 +25,10 @@ purchase::~purchase()
     delete ui;
 }
 
-void purchase::update()
+void purchase::update(QSqlRecord* reco)
 {
-    QSqlRecord reco=dynamic_cast<Widget*>(parent())->model->record(dynamic_cast<Widget*>(parent())->currentindex.row());
-    ui->lineEdit_2->setText(reco.value(0).toString());
-    ui->lineEdit_3->setText(reco.value(1).toString());
-    ui->lineEdit_4->setText(reco.value(2).toString());
-    ui->lineEdit_5->setText(reco.value(3).toString());
-
-
-
+    ui->lineEdit_2->setText(reco->value(0).toString());
+    ui->lineEdit_3->setText(reco->value(1).toString());
+    ui->lineEdit_4->setText(reco->value(2).toString());
+    ui->lineEdit_5->setText(reco->value(3).toString());
 }

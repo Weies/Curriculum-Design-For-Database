@@ -21,7 +21,11 @@ public:
     QSqlDatabase& opendb();
     void loadinfo();
     void initialUser();
-    QTimer* timer;
+    QTimer* timer0;
+    QTimer* timer1;
+    QTimer* timer2;
+    QTimer* timer3;
+
     QLabel* title;
     QSqlTableModel *model;
     superButton* portrait;
@@ -31,8 +35,6 @@ public:
     QWidget* currentwidget;
     QWidget* targetwidget;
 
-
-    QModelIndex currentindex;
     int direction;
     void change_widget();
     //superButton* btn;
