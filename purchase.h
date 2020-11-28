@@ -14,6 +14,7 @@ public:
     explicit purchase(QWidget *parent = nullptr);
     ~purchase();
     void update(QSqlRecord* w);
+    void cost_update();
     superButton *btn_commit;
     superButton *btn_return;
 private:

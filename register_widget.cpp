@@ -37,7 +37,6 @@ register_widget::register_widget(QWidget *parent) :
             dynamic_cast<Widget*>(parent)->initialUser();
             emit dynamic_cast<Widget*>(parent)->gotopick();
         }
-
     });
 }
 
