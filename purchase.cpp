@@ -36,13 +36,11 @@ purchase::purchase(QWidget *parent) :
             QDateTime endtime = buytime.addYears(ui->spinBox->value());
             QString time_str = buytime.toString("yyyy-MM-dd"); //设置显示格式
             QString time_str1 = endtime.toString("yyyy-MM-dd");
-            QString str = QString("insert into sold_domain values('%1','%2','%3',str_to_date('%4','%Y-%m-%d'),str_to_date('%5','%Y-%m-%d'),'')").arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text()).arg(ID).arg(time_str).arg(time_str1);
-            QString str1 = QString("insert into user_domain values('%1',str_to_date('%2','%Y-%m-%d'),str_to_date('%3','%Y-%m-%d'),'%4')").arg(ui->lineEdit_2->text()).arg(time_str).arg(time_str1).arg(ui->lineEdit->text());
+            QString str = QString("insert into sold_domain values('%1','%2','%3',str_to_date('%4','%Y-%m-%d'),str_to_date('%5','%Y-%m-%d'),'%6','')").arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text()).arg(ID).arg(time_str).arg(time_str1).arg(ui->lineEdit->text());
             QString str2 = QString("update all_domain set is_sold='yes' where dm_name='%1'").arg(ui->lineEdit_2->text());
             QString str3 = QString("delete from available_dn where dm_name='%1'").arg(ui->lineEdit_2->text());
             QSqlQuery query(db);
             query.exec(str);
-            query.exec(str1);
             query.exec(str2);
             query.exec(str3);
             static_cast<Widget*>(parent)->model->select();

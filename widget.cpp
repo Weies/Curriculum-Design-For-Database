@@ -154,8 +154,13 @@ Widget::Widget()
         change_widget();
     });
     connect(this,&Widget::gotocontrol,[=](){
-        targetwidget=controlPanel;
-        change_widget();
+        if(regestered)
+        {
+            controlPanel->update();
+            targetwidget=controlPanel;
+            change_widget();
+        }
+        else QMessageBox::critical(this,"critical","请先登录");
     });
     connect(this,&Widget::gotopurchase,[=](){
         targetwidget=purch;

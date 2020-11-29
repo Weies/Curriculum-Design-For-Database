@@ -16,6 +16,7 @@ public:
     ~control();
 
     superButton *btn_back;
+    void update();
 private:
     Ui::control *ui;
 };
