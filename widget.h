@@ -12,6 +12,7 @@
 #include<control.h>
 #include<purchase.h>
 #include<QModelIndex>
+#include<domain_detail.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -44,6 +45,7 @@ public:
     control* controlPanel;//控制面板页面
     person_widget* person;//用户个人信息页面，done
     purchase* purch;
+    domain_detail* detail;
 signals:
     void gotologin();
     void gotoregister();
@@ -51,6 +53,7 @@ signals:
     void gotopick();
     void gotocontrol();
     void gotopurchase();
+    void gotodetail();
 };
 
 #endif // WIDGET_H

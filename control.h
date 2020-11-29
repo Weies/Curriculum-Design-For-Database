@@ -3,6 +3,7 @@
 #include<qlabel.h>
 #include <QWidget>
 #include<superbutton.h>
+#include<qtableview.h>
 namespace Ui {
 class control;
 }
@@ -15,7 +16,9 @@ public:
     explicit control(QWidget *parent = nullptr);
     ~control();
 
+    QTableView* view;
     superButton *btn_back;
+    superButton *btn_next;
     void update();
 private:
     Ui::control *ui;

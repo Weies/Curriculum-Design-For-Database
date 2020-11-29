@@ -56,6 +56,9 @@ Widget::Widget()
     purch=new purchase(this);purch->hide();
     purch->resize(1000,720);
     purch->move(0,80);
+    detail=new domain_detail(this);detail->hide();
+    detail->resize(1000,720);
+    detail->move(0,80);
 
     initialUser();
     loadinfo();
@@ -138,6 +141,15 @@ Widget::Widget()
         }
         else emit gotologin();
     });
+    connect(controlPanel->btn_next,&superButton::Clicked,[=](){
+        if(controlPanel->view->currentIndex().row()>=0)
+        {
+            QSqlRecord reco=model->record(controlPanel->view->currentIndex().row());
+            detail->update(&reco);
+            emit gotodetail();
+        }
+        else QMessageBox::critical(this,"critical","请先选中域名");
+    });
     connect(btn_control,&superButton::Clicked,[=](){
         if(currentwidget!=controlPanel)emit gotocontrol();
     });
@@ -185,6 +197,10 @@ Widget::Widget()
             targetwidget=login;
             change_widget();
         }
+    });
+    connect(this,&Widget::gotodetail,[=](){
+        targetwidget=detail;
+        change_widget();
     });
 
     QLabel* l=new QLabel("|");
