@@ -16,12 +16,12 @@
 #include<QMessageBox>
 #include<qsqlquery.h>
 QSqlDatabase db;
-
 bool is_admin=false;
 bool regestered=false;
 QString username;
 QString password;
 QString ID;
+server* svr;
 
 QString readLine(QFile& f)
 {
