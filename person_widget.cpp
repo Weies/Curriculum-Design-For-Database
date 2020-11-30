@@ -42,6 +42,7 @@ person_widget::~person_widget()
 {
     delete ui;
 }
+
 void person_widget::initialize()
 {
     ui->userid->setText(ID);

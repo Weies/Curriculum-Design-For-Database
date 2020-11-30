@@ -24,6 +24,7 @@ login::login(QWidget *parent) :
         emit dynamic_cast<Widget*>(parent)->gotoregister();
     });
     ui->toolButton->setStyleSheet("color:blue");
+
     connect(btn_loginin,&superButton::Clicked,[=](){
         QString id_str=ui->lineEdit->text();
         QString password_str=ui->lineEdit_2->text();
@@ -47,6 +48,7 @@ login::login(QWidget *parent) :
             f.close();
             dynamic_cast<Widget*>(this->parent())->person->initialize();
             emit dynamic_cast<Widget*>(this->parent())->gotopick();
+            emit dynamic_cast<Widget*>(this->parent())->isadmin();
         }
     });
 }
@@ -72,8 +74,6 @@ void login::reLoadUser()
             emit dynamic_cast<Widget*>(this->parent())->gotopick();
         }
     }
-
-
 }
 
 login::~login()
