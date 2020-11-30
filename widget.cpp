@@ -14,6 +14,7 @@
 #include<QHBoxLayout>
 #include<QDebug>
 #include<QMessageBox>
+#include<qsqlquery.h>
 QSqlDatabase db;
 
 bool is_admin=false;
@@ -56,9 +57,13 @@ Widget::Widget()
     purch=new purchase(this);purch->hide();
     purch->resize(1000,720);
     purch->move(0,80);
+    detail=new domain_detail(this);detail->hide();
+    detail->resize(1000,720);
+    detail->move(0,80);
 
     initialUser();
     loadinfo();
+
 
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
@@ -124,6 +129,17 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
+    if(regestered)
+    {
+        QString str = QString("select is_administrator from user where account_id='%1'").arg(ID);
+        QSqlQuery query(db);
+        query.exec(str);
+        QString admin_str;
+        while(query.next())admin_str=query.value(0).toString();
+        if(admin_str=="yes")is_admin=true;
+        else is_admin=false;
+    }
+    pick->admin_update();
     /*连接按钮*/
     connect(pick->buy,&QToolButton::clicked,[=](){
         if(regestered)
@@ -137,6 +153,15 @@ Widget::Widget()
             else QMessageBox::critical(this,"critical","请先选中域名");
         }
         else emit gotologin();
+    });
+    connect(controlPanel->btn_next,&superButton::Clicked,[=](){
+        if(controlPanel->view->currentIndex().row()>=0)
+        {
+            QSqlRecord reco=model->record(controlPanel->view->currentIndex().row());
+            detail->update(&reco);
+            emit gotodetail();
+        }
+        else QMessageBox::critical(this,"critical","请先选中域名");
     });
     connect(btn_control,&superButton::Clicked,[=](){
         if(currentwidget!=controlPanel)emit gotocontrol();
@@ -154,8 +179,13 @@ Widget::Widget()
         change_widget();
     });
     connect(this,&Widget::gotocontrol,[=](){
-        targetwidget=controlPanel;
-        change_widget();
+        if(regestered)
+        {
+            controlPanel->update();
+            targetwidget=controlPanel;
+            change_widget();
+        }
+        else QMessageBox::critical(this,"critical","请先登录");
     });
     connect(this,&Widget::gotopurchase,[=](){
         targetwidget=purch;
@@ -181,6 +211,10 @@ Widget::Widget()
             change_widget();
         }
     });
+    connect(this,&Widget::gotodetail,[=](){
+        targetwidget=detail;
+        change_widget();
+    });
 
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
@@ -196,6 +230,8 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
+
+
 }
 
 void Widget::initialUser()//读文件，自动为用户登录

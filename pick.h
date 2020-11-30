@@ -20,7 +20,9 @@ public:
     QTableView* view;
     QToolButton* buy;
     QToolButton* searchbutton;
+    QToolButton* managebutton;
     Line* input;
+    void admin_update();
 signals:
 };
 

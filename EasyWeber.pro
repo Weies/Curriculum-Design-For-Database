@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     control.cpp \
+    domain_detail.cpp \
     line.cpp \
     login.cpp \
     main.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     control.h \
+    domain_detail.h \
     line.h \
     login.h \
     no_frame_widget.h \
@@ -41,6 +43,7 @@ HEADERS += \
 
 FORMS += \
     control.ui \
+    domain_detail.ui \
     login.ui \
     no_frame_widget.ui \
     person_widget.ui \
