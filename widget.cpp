@@ -14,6 +14,7 @@
 #include<QHBoxLayout>
 #include<QDebug>
 #include<QMessageBox>
+#include<qsqlquery.h>
 QSqlDatabase db;
 
 bool is_admin=false;
@@ -62,6 +63,7 @@ Widget::Widget()
 
     initialUser();
     loadinfo();
+
 
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
@@ -127,6 +129,17 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
+    if(regestered)
+    {
+        QString str = QString("select is_administrator from user where account_id='%1'").arg(ID);
+        QSqlQuery query(db);
+        query.exec(str);
+        QString admin_str;
+        while(query.next())admin_str=query.value(0).toString();
+        if(admin_str=="yes")is_admin=true;
+        else is_admin=false;
+    }
+    pick->admin_update();
     /*连接按钮*/
     connect(pick->buy,&QToolButton::clicked,[=](){
         if(regestered)
@@ -217,6 +230,8 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
+
+
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
