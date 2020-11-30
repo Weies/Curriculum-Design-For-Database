@@ -41,7 +41,6 @@ Widget::Widget()
     pick=new class pick(this);
     pick->move(0,80);
     currentwidget=pick;
-
     login= new class login(this);login->hide();
     login->resize(1000,720);
     login->move(0,80);
@@ -60,6 +59,26 @@ Widget::Widget()
     detail=new domain_detail(this);detail->hide();
     detail->resize(1000,720);
     detail->move(0,80);
+    admini=new adminwidget(this);admini->hide();
+    admini->resize(1000,720);
+    admini->move(0,80);
+
+    connect(this,&Widget::isadmin,[=](){
+        if(regestered)
+        {
+            QString str = QString("select is_administrator from user where account_id='%1'").arg(ID);
+            QSqlQuery query(db);
+            query.exec(str);
+            QString admin_str;
+            while(query.next())admin_str=query.value(0).toString();
+            if(admin_str=="yes")is_admin=true;
+            else is_admin=false;
+        }
+        pick->admin_update();
+    });
+    login= new class login(this);login->hide();
+    login->resize(1000,720);
+    login->move(0,80);
 
     initialUser();
     loadinfo();
@@ -129,17 +148,8 @@ Widget::Widget()
     portrait->setPixSize(50,50);
     portrait->move(950,40);portrait->resize(50,50);
 
-    if(regestered)
-    {
-        QString str = QString("select is_administrator from user where account_id='%1'").arg(ID);
-        QSqlQuery query(db);
-        query.exec(str);
-        QString admin_str;
-        while(query.next())admin_str=query.value(0).toString();
-        if(admin_str=="yes")is_admin=true;
-        else is_admin=false;
-    }
-    pick->admin_update();
+
+
     /*连接按钮*/
     connect(pick->buy,&QToolButton::clicked,[=](){
         if(regestered)
@@ -216,6 +226,10 @@ Widget::Widget()
         targetwidget=detail;
         change_widget();
     });
+    connect(this,&Widget::gotoadmin,[=](){
+        targetwidget=admini;
+        change_widget();
+    });
 
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
@@ -248,6 +262,7 @@ void Widget::initialUser()//读文件，自动为用户登录
         password=readLine(f);
         f.close();
         login->reLoadUser();
+        emit isadmin();
     }
     else regestered=false;
 }
