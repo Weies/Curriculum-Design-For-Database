@@ -37,7 +37,6 @@ Widget::Widget()
     resize(1000,800);
     db=opendb();
     if(!db.open())QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
-
     pick=new class pick(this);
     pick->move(0,80);
     currentwidget=pick;
