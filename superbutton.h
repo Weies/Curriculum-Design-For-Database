@@ -63,7 +63,6 @@ public:
         setAttribute(Qt::WA_TransparentForMouseEvents,false);
     };
 
-
     void resizeEvent(QResizeEvent* )
     {
         if(pixed==false&&type!=TextOnly)
@@ -126,7 +125,6 @@ public:
         }
         emit Clicked();
     }
-
 };
 
 #endif // TOOLBOTTON_H

@@ -68,8 +68,8 @@ Widget::Widget()
     timer3=new QTimer(this);
 
     connect(timer0,&QTimer::timeout,[=](){
-        targetwidget->move(0,targetwidget->y()-40);
-        currentwidget->move(0,currentwidget->y()-40);
+        targetwidget->move(0,targetwidget->y()-20);
+        currentwidget->move(0,currentwidget->y()-20);
         if(targetwidget->y()<=90)
         {
             timer0->stop();
@@ -79,8 +79,8 @@ Widget::Widget()
         }
     });
     connect(timer1,&QTimer::timeout,[=](){
-        targetwidget->move(0,targetwidget->y()+40);
-        currentwidget->move(0,currentwidget->y()+40);
+        targetwidget->move(0,targetwidget->y()+20);
+        currentwidget->move(0,currentwidget->y()+20);
         if(targetwidget->y()>=90)
         {
             timer1->stop();
@@ -90,8 +90,8 @@ Widget::Widget()
         }
     });
     connect(timer2,&QTimer::timeout,[=](){
-        targetwidget->move(targetwidget->x()-40,80);
-        currentwidget->move(currentwidget->x()-40,80);
+        targetwidget->move(targetwidget->x()-20,80);
+        currentwidget->move(currentwidget->x()-20,80);
         if(targetwidget->x()<=0)
         {
             timer2->stop();
@@ -101,8 +101,8 @@ Widget::Widget()
         }
     });
     connect(timer3,&QTimer::timeout,[=](){
-        targetwidget->move(targetwidget->x()+40,80);
-        currentwidget->move(currentwidget->x()+40,80);
+        targetwidget->move(targetwidget->x()+20,80);
+        currentwidget->move(currentwidget->x()+20,80);
         if(targetwidget->x()>=0)
         {
             timer3->stop();
