@@ -165,6 +165,7 @@ Widget::Widget()
     });
     connect(btn_control,&superButton::Clicked,[=](){
         if(currentwidget!=controlPanel)emit gotocontrol();
+        svr->conToSvr();
     });
     connect(portrait,&superButton::Clicked,[=](){
         if(currentwidget!=person)emit gotoperson();
@@ -231,6 +232,7 @@ Widget::Widget()
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
 
+    svr=new server;
 
 }
 

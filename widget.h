@@ -13,6 +13,8 @@
 #include<purchase.h>
 #include<QModelIndex>
 #include<domain_detail.h>
+#include<server.h>
+server* svr;
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -35,7 +37,6 @@ public:
     superButton* btn_sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
-
     int direction;
     void change_widget();
     //superButton* btn;
