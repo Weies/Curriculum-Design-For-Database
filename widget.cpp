@@ -15,6 +15,7 @@
 #include<QDebug>
 #include<QMessageBox>
 #include<qsqlquery.h>
+#include<QTime>
 QSqlDatabase db;
 bool is_admin=false;
 bool regestered=false;
@@ -174,7 +175,6 @@ Widget::Widget()
     });
     connect(btn_control,&superButton::Clicked,[=](){
         if(currentwidget!=controlPanel)emit gotocontrol();
-        svr->conToSvr();
     });
     connect(portrait,&superButton::Clicked,[=](){
         if(currentwidget!=person)emit gotoperson();
@@ -244,9 +244,8 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-
     svr=new server;
-
+    svr->upload("C:\\Users\\22572\\Documents\\Tencent Files\\2257263015\\FileRecv\\右移.jpg");
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
@@ -306,18 +305,18 @@ void Widget::change_widget()
     direction=rand()%4;
     if(direction==0)
     {
-        targetwidget->move(0,800);timer0->start(1);
+        targetwidget->move(0,800);timer0->start(10);
     }
     if(direction==1)
     {
-        targetwidget->move(0,-720);timer1->start(1);
+        targetwidget->move(0,-720);timer1->start(10);
     }
     if(direction==2)
     {
-        targetwidget->move(1000,90);timer2->start(1);
+        targetwidget->move(1000,90);timer2->start(10);
     }
     if(direction==3)
     {
-        targetwidget->move(-1000,90);timer3->start(1);
+        targetwidget->move(-1000,90);timer3->start(10);
     }
 }
