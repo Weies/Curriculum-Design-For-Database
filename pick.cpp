@@ -3,6 +3,7 @@
 #include<superbutton.h>
 #include<QDebug>
 #include<widget.h>
+#include<ReadOnlyDelegate.h>
 extern QSqlDatabase db;
 #include<QKeyEvent>
 extern bool is_admin;
@@ -19,13 +20,13 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     view->installEventFilter(this);
     buy=new QToolButton(this);buy->move(800,650);buy->setText("立即购买");
     buy->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");
-
     input=new Line(this);input->move(20,45);input->resize(800,50);input->setText("请输入您心仪的网站名称");
     searchbutton=new QToolButton(this);searchbutton->move(850,50);searchbutton->setText("搜索");
     searchbutton->setStyleSheet("width:100px;height:40px;background-color:rgb(53,150,255);border-radius:5px;");
     managebutton=new QToolButton(this);managebutton->move(100,650);managebutton->setText("管理台");
     managebutton->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");
     managebutton->hide();
+
     connect(managebutton,&QToolButton::clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotoadmin();
     });
@@ -60,6 +61,12 @@ bool pick::eventFilter(QObject* obj,QEvent* evt)
 
 void pick::admin_update()
 {
-    if(regestered&&is_admin)managebutton->show();
+    if(regestered&&is_admin)
+    {
+        managebutton->show();
+        ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
+        view->setItemDelegateForColumn(0,readOnlyDelegate);
+    }
     else view->setEditTriggers(QTableView::NoEditTriggers);
 }
+

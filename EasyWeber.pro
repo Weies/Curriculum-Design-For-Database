@@ -30,6 +30,7 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    ReadOnlyDelegate.h \
     adminwidget.h \
     control.h \
     domain_detail.h \
