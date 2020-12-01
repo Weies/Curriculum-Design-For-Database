@@ -13,6 +13,7 @@
 #include<purchase.h>
 #include<QModelIndex>
 #include<domain_detail.h>
+#include<server.h>
 #include<adminwidget.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
@@ -36,7 +37,6 @@ public:
     superButton* btn_sites;
     QWidget* currentwidget;
     QWidget* targetwidget;
-
     int direction;
     void change_widget();
     //superButton* btn;
@@ -48,7 +48,6 @@ public:
     purchase* purch;
     domain_detail* detail;
     adminwidget* admini;
-
 signals:
     void gotologin();
     void gotoregister();
@@ -57,8 +56,8 @@ signals:
     void gotocontrol();
     void gotopurchase();
     void gotodetail();
-    void isadmin();
     void gotoadmin();
+    void isadmin();
 };
 
 #endif // WIDGET_H

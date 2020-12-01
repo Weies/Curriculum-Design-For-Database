@@ -15,13 +15,14 @@
 #include<QDebug>
 #include<QMessageBox>
 #include<qsqlquery.h>
+#include<QTime>
 QSqlDatabase db;
-
 bool is_admin=false;
 bool regestered=false;
 QString username;
 QString password;
 QString ID;
+server* svr;
 
 QString readLine(QFile& f)
 {
@@ -37,7 +38,6 @@ Widget::Widget()
     resize(1000,800);
     db=opendb();
     if(!db.open())QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
-
     pick=new class pick(this);
     pick->move(0,80);
     currentwidget=pick;
@@ -92,8 +92,8 @@ Widget::Widget()
     timer3=new QTimer(this);
 
     connect(timer0,&QTimer::timeout,[=](){
-        targetwidget->move(0,targetwidget->y()-40);
-        currentwidget->move(0,currentwidget->y()-40);
+        targetwidget->move(0,targetwidget->y()-20);
+        currentwidget->move(0,currentwidget->y()-20);
         if(targetwidget->y()<=90)
         {
             timer0->stop();
@@ -103,8 +103,8 @@ Widget::Widget()
         }
     });
     connect(timer1,&QTimer::timeout,[=](){
-        targetwidget->move(0,targetwidget->y()+40);
-        currentwidget->move(0,currentwidget->y()+40);
+        targetwidget->move(0,targetwidget->y()+20);
+        currentwidget->move(0,currentwidget->y()+20);
         if(targetwidget->y()>=90)
         {
             timer1->stop();
@@ -114,8 +114,8 @@ Widget::Widget()
         }
     });
     connect(timer2,&QTimer::timeout,[=](){
-        targetwidget->move(targetwidget->x()-40,80);
-        currentwidget->move(currentwidget->x()-40,80);
+        targetwidget->move(targetwidget->x()-20,80);
+        currentwidget->move(currentwidget->x()-20,80);
         if(targetwidget->x()<=0)
         {
             timer2->stop();
@@ -125,8 +125,8 @@ Widget::Widget()
         }
     });
     connect(timer3,&QTimer::timeout,[=](){
-        targetwidget->move(targetwidget->x()+40,80);
-        currentwidget->move(currentwidget->x()+40,80);
+        targetwidget->move(targetwidget->x()+20,80);
+        currentwidget->move(currentwidget->x()+20,80);
         if(targetwidget->x()>=0)
         {
             timer3->stop();
@@ -244,8 +244,8 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-
-
+    svr=new server;
+    svr->upload("C:\\Users\\22572\\Documents\\Tencent Files\\2257263015\\FileRecv\\右移.jpg");
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
@@ -305,18 +305,18 @@ void Widget::change_widget()
     direction=rand()%4;
     if(direction==0)
     {
-        targetwidget->move(0,800);timer0->start(1);
+        targetwidget->move(0,800);timer0->start(10);
     }
     if(direction==1)
     {
-        targetwidget->move(0,-720);timer1->start(1);
+        targetwidget->move(0,-720);timer1->start(10);
     }
     if(direction==2)
     {
-        targetwidget->move(1000,90);timer2->start(1);
+        targetwidget->move(1000,90);timer2->start(10);
     }
     if(direction==3)
     {
-        targetwidget->move(-1000,90);timer3->start(1);
+        targetwidget->move(-1000,90);timer3->start(10);
     }
 }
