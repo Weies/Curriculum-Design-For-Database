@@ -20,6 +20,12 @@ adminwidget::adminwidget(QWidget *parent) :
     connect(btn_back,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotopick();
     });
+    connect(btn_next,&superButton::Clicked,[=](){
+        emit dynamic_cast<Widget*>(parent)->gotoalldomain();
+    });
+    connect(btn_next2,&superButton::Clicked,[=](){
+        emit dynamic_cast<Widget*>(parent)->gotosolddomain();
+    });
 
 }
 

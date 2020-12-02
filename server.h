@@ -21,7 +21,7 @@ public:
         conToSvr();
         connect(skt,&QTcpSocket::readyRead,[=](){buffer+=skt->readAll();emit newPkg();});
         connect(skt,&QTcpSocket::connected,[=](){ready=true;});
-        QTimer::singleShot(100,this,[=](){
+        QTimer::singleShot(500,this,[=](){
             evt.quit();
         });
         evt.exec();

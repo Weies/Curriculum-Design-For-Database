@@ -62,6 +62,15 @@ Widget::Widget()
     admini=new adminwidget(this);admini->hide();
     admini->resize(1000,720);
     admini->move(0,80);
+    alldomain=new table_alldomain(this);alldomain->hide();
+    alldomain->resize(1000,720);
+    alldomain->move(0,80);
+    newdomain=new addnewdomain(this);newdomain->hide();
+    newdomain->resize(1000,720);
+    newdomain->move(0,80);
+    solddomain=new table_solddomain(this);solddomain->hide();
+    solddomain->resize(1000,720);
+    solddomain->move(0,80);
 
     connect(this,&Widget::isadmin,[=](){
         if(regestered)
@@ -185,6 +194,7 @@ Widget::Widget()
 
     /*连接goto,切换窗口*/
     connect(this,&Widget::gotopick,[=](){
+        model->select();
         targetwidget=pick;
         change_widget();
     });
@@ -229,6 +239,20 @@ Widget::Widget()
         targetwidget=admini;
         change_widget();
     });
+    connect(this,&Widget::gotoalldomain,[=](){
+        alldomain->model->select();
+        targetwidget=alldomain;
+        change_widget();
+    });
+    connect(this,&Widget::gotoadddomain,[=](){
+        targetwidget=newdomain;
+        change_widget();
+    });
+    connect(this,&Widget::gotosolddomain,[=](){
+        solddomain->model->select();
+        targetwidget=solddomain;
+        change_widget();
+    });
 
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
@@ -245,7 +269,9 @@ Widget::Widget()
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
     svr=new server;
-    svr->upload("C:\\Users\\22572\\Documents\\Tencent Files\\2257263015\\FileRecv\\右移.jpg");
+    //svr->update();
+    //qDebug()<<svr->getLogs();
+
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
@@ -275,6 +301,17 @@ void Widget::loadinfo()
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
     connect(pick->searchbutton,&QToolButton::clicked,[=](){model->setFilter("dm_name like '%"+pick->input->text()+"%'");});
+    connect(model,&QSqlTableModel::beforeUpdate,[=](){
+        QSqlRecord reco=model->record(pick->view->currentIndex().row());
+        QString dm_str,quality_str,price_str,area_str;
+        dm_str=reco.value(0).toString();
+        quality_str=reco.value(1).toString();
+        price_str=reco.value(2).toString();
+        area_str=reco.value(3).toString();
+        QSqlQuery query(db);
+        QString str=QString("update all_domain set quality='%1',price='%2',area='%3' where dm_name='%4' ").arg(quality_str).arg(price_str).arg(area_str).arg(dm_str);
+        query.exec(str);
+    });
 }
 
 QSqlDatabase& Widget::opendb()
