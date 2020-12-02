@@ -15,6 +15,9 @@
 #include<domain_detail.h>
 #include<server.h>
 #include<adminwidget.h>
+#include<table_alldomain.h>
+#include<addnewdomain.h>
+#include<table_solddomain.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -48,6 +51,9 @@ public:
     purchase* purch;
     domain_detail* detail;
     adminwidget* admini;
+    table_alldomain* alldomain;
+    addnewdomain* newdomain;
+    table_solddomain* solddomain;
 signals:
     void gotologin();
     void gotoregister();
@@ -58,6 +64,9 @@ signals:
     void gotodetail();
     void gotoadmin();
     void isadmin();
+    void gotoalldomain();
+    void gotoadddomain();
+    void gotosolddomain();
 };
 
 #endif // WIDGET_H

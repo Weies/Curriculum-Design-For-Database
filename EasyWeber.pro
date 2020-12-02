@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addnewdomain.cpp \
     adminwidget.cpp \
     control.cpp \
     domain_detail.cpp \
@@ -27,10 +28,13 @@ SOURCES += \
     pick.cpp \
     purchase.cpp \
     register_widget.cpp \
+    table_alldomain.cpp \
+    table_solddomain.cpp \
     widget.cpp
 
 HEADERS += \
     ReadOnlyDelegate.h \
+    addnewdomain.h \
     adminwidget.h \
     control.h \
     domain_detail.h \
@@ -43,9 +47,12 @@ HEADERS += \
     register_widget.h \
     server.h \
     superbutton.h \
+    table_alldomain.h \
+    table_solddomain.h \
     widget.h
 
 FORMS += \
+    addnewdomain.ui \
     adminwidget.ui \
     control.ui \
     domain_detail.ui \
@@ -54,7 +61,9 @@ FORMS += \
     person_widget.ui \
     pick.ui \
     purchase.ui \
-    register_widget.ui
+    register_widget.ui \
+    table_alldomain.ui \
+    table_solddomain.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
