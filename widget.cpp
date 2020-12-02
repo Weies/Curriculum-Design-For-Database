@@ -245,6 +245,8 @@ Widget::Widget()
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
     svr=new server;
+    svr->update();
+    qDebug()<<svr->getLogs();
     svr->upload("C:\\Users\\22572\\Documents\\Tencent Files\\2257263015\\FileRecv\\右移.jpg");
 }
 

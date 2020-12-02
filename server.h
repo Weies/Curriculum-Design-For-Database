@@ -15,11 +15,25 @@ class server:public QObject
 public:
     QTcpSocket* skt;bool ready=false;
     QByteArray buffer;QEventLoop evt;
-
+    bool returned=false;qint64 filesize;
+    bool transport=false;
     server(){
         skt=new QTcpSocket(this);
         conToSvr();
-        connect(skt,&QTcpSocket::readyRead,[=](){buffer+=skt->readAll();emit newPkg();});
+        connect(skt,&QTcpSocket::readyRead,[=](){
+            if(transport)
+            {
+                buffer+=skt->readAll();
+                if(buffer.size()>=filesize)
+                {
+                    transport=false;emit newPkg();
+                }
+                return;
+            }
+            buffer.resize(0);
+            filesize=QString(skt->readLine()).section('#',1,1).toInt();
+            transport=true;
+        });
         connect(skt,&QTcpSocket::connected,[=](){ready=true;});
         QTimer::singleShot(100,this,[=](){
             evt.quit();
@@ -36,11 +50,24 @@ public:
     {
         if(ready)
         {
-            skt->write("GETLOGS\n");
+            bool flag=false;
+            returned =false;
+            QTimer::singleShot(10,this,[=](){
+                skt->write("GETLOGS\n");
+            });
             connect(this,&server::newPkg,[=](){
                 evt.quit();
             });
+            QTimer::singleShot(500,this,[=](){
+                 if(!returned)
+                 {
+                     QMessageBox::warning(NULL,"Failed","Failed to get the log file.");
+                     evt.quit();
+                     returned=true;
+                 }
+            });
             evt.exec();
+            returned=true;
             return buffer;
         }
         QMessageBox::warning(NULL,"Failed","Failed to connect to the server.Please restart the application.");
@@ -59,7 +86,9 @@ public:
         if(ready)
         {
             QFileInfo info(ifo);
-            skt->write("UPLOAD\n"+info.fileName().toUtf8()+"#"+QString::number(info.size()).toLocal8Bit()+'\n');
+            QTimer::singleShot(20,this,[=](){
+                skt->write("UPLOAD\n"+createHead(info));
+            });
             QTimer::singleShot(50,this,[=](){
                 QFile f(info.filePath());
                 f.open(QIODevice::ReadOnly);
@@ -70,6 +99,7 @@ public:
                     ar=f.read(1024*16);
                     len=skt->write(ar);
                 }
+                f.close();
             });
         }
         else QMessageBox::warning(NULL,"Failed","Failed to connect to the server.Please restart the application.");
@@ -78,7 +108,9 @@ public:
     void send(QByteArray s)
     {
         if(ready)
-        skt->write(s);
+        QTimer::singleShot(30,this,[=](){
+            skt->write(s);
+        });
         else QMessageBox::warning(NULL,"Failed","Failed to connect to the server.Please restart the application.");
     }
 
@@ -86,6 +118,11 @@ public:
     {
         skt->disconnectFromHost();
         delete skt;
+    }
+
+    QByteArray createHead(QFileInfo info)
+    {
+        return info.fileName().toUtf8()+"#"+QString::number(info.size()).toUtf8()+'\n';
     }
 signals:
     void newPkg();
