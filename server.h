@@ -50,7 +50,6 @@ public:
     {
         if(ready)
         {
-            bool flag=false;
             returned =false;
             QTimer::singleShot(10,this,[=](){
                 skt->write("GETLOGS\n");

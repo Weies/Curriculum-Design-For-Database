@@ -6,7 +6,6 @@
 extern QSqlDatabase db;
 extern bool regestered;
 extern QString ID;
-
 extern QString password;
 #include<QFile>
 login::login(QWidget *parent) :
@@ -33,7 +32,6 @@ login::login(QWidget *parent) :
         QSqlQuery query(db);
         query.exec(str);
         while(query.next())password_str1=query.value(0).toString();
-
         if(id_str=="")QMessageBox::critical(this,"critical","账号不能为空");
         else if(password_str=="")QMessageBox::critical(this,"critical","密码不能为空");
         else if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密码错误");

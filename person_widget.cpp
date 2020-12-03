@@ -21,9 +21,11 @@ person_widget::person_widget(QWidget *parent) :
     comboBox_type->move(480,375);
     btn_commit=new superButton("提交",this);btn_commit->resize(250,40);
     btn_return=new superButton("返回",this);btn_return->resize(250,40);
-    btn_commit->move(220,650);btn_return->move(530,650);
+    btn_logout=new superButton("退出登录",this);btn_logout->resize(250,40);
+    btn_commit->move(100,650);btn_return->move(400,650);btn_logout->move(700,650);
     btn_commit->setMouseOutColor(QColor(4,186,251));
     btn_return->setMouseOutColor(QColor(4,186,251));
+    btn_logout->setMouseOutColor(QColor(4,186,251));
     ui->userid->setReadOnly(true);
     this->setStyleSheet("QLineEdit{border :1px ;background-color: rgba(0,0,0,0)}");
     ui->groupBox->setStyleSheet(QObject::tr("#groupBox{border: 0px solid;}"));
@@ -33,6 +35,15 @@ person_widget::person_widget(QWidget *parent) :
     });
     connect(btn_return,&superButton::Clicked,[=](){
         initialize();
+        emit dynamic_cast<Widget*>(parent)->gotopick();
+    });
+    connect(btn_logout,&superButton::Clicked,[=](){
+        QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
+        f.remove();
+        regestered=false;
+        ID="";
+        password="";
+        username="";
         emit dynamic_cast<Widget*>(parent)->gotopick();
     });
 }
