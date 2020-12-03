@@ -20,6 +20,7 @@ public:
     void update();
     superButton *btn_commit;
     superButton *btn_return;
+    superButton *btn_logout;
 private:
     Ui::person_widget *ui;
 };

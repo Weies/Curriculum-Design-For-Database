@@ -26,16 +26,24 @@ register_widget::register_widget(QWidget *parent) :
             QString password_str=ui->lineEdit_2->text();
             QString phone_str=ui->lineEdit_4->text();
             QString nickname=ui->lineEdit_5->text();
-            QString str = QString("insert into user values('%1','%2','','','%3','','','','','no','%4')").arg(id_str).arg(password_str).arg(phone_str).arg(nickname);
-            db.exec(str);
-            QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
-            f.open(QIODevice::WriteOnly);
-            f.write(id_str.toLatin1()+"\r\n");
-            f.write(nickname.toLatin1()+"\r\n");
-            f.write(password_str.toLatin1()+"\r\n");
-            f.close();
-            dynamic_cast<Widget*>(parent)->initialUser();
-            emit dynamic_cast<Widget*>(parent)->gotopick();
+            QString str=QString("select account_id from user where account_id='%1' ").arg(id_str);
+            QSqlQuery query(db);
+            query.exec(str);
+            QString id_str1="";
+            while(query.next())id_str1=query.value(0).toString();
+            if(id_str1!="")QMessageBox::critical(this,"critical","该账号已存在，请更换账号");
+            else{
+                QString str = QString("insert into user values('%1','%2','%3','no','','','%4','','','','')").arg(id_str).arg(password_str).arg(nickname).arg(phone_str);
+                query.exec(str);
+                QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
+                f.open(QIODevice::WriteOnly);
+                f.write(id_str.toLatin1()+"\r\n");
+                f.write(nickname.toLatin1()+"\r\n");
+                f.write(password_str.toLatin1()+"\r\n");
+                f.close();
+                dynamic_cast<Widget*>(parent)->initialUser();
+                emit dynamic_cast<Widget*>(parent)->gotopick();
+            }
         }
     });
 }
