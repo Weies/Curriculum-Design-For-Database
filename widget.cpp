@@ -269,8 +269,8 @@ Widget::Widget()
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
     svr=new server;
-    //svr->update();
-    //qDebug()<<svr->getLogs();
+    svr->update();
+    qDebug()<<svr->getLogs();
 
 }
 
