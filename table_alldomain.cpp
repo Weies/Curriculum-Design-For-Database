@@ -20,12 +20,13 @@ table_alldomain::table_alldomain(QWidget *parent) :
     btn_add->setMouseOutColor(QColor(4,186,251));
     view=ui->tableView;view->setShowGrid(0);
     view->setStyleSheet("background-color:rgba(255,255,255,100);border:0px;");
-    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+//    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     view->horizontalHeader()->setSectionsClickable(false);
     view->setMinimumWidth(800);
     view->installEventFilter(this);
-    ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
-    view->setItemDelegateForColumn(0,readOnlyDelegate);
+//    ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
+//    view->setItemDelegateForColumn(0,readOnlyDelegate);
+    view->setEditTriggers(QTableView::NoEditTriggers);
     model=new QSqlTableModel(this,db);
     view->setModel(model);
     model->setTable("all_domain");
@@ -33,6 +34,11 @@ table_alldomain::table_alldomain(QWidget *parent) :
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
+    view->horizontalHeader()->resizeSection(0,305);
+    view->horizontalHeader()->resizeSection(1,160);
+    view->horizontalHeader()->resizeSection(2,190);
+    view->horizontalHeader()->resizeSection(3,160);
+    view->horizontalHeader()->resizeSection(4,100);
     connect(model,&QSqlTableModel::beforeUpdate,[=](){
         QSqlRecord reco=model->record(view->currentIndex().row());
         QString dm_str,quality_str,price_str,area_str;

@@ -92,7 +92,6 @@ Widget::Widget()
     initialUser();
     loadinfo();
 
-
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
     timer0=new QTimer(this);
@@ -176,8 +175,8 @@ Widget::Widget()
     connect(controlPanel->btn_next,&superButton::Clicked,[=](){
         if(controlPanel->view->currentIndex().row()>=0)
         {
-            QSqlRecord reco=model->record(controlPanel->view->currentIndex().row());
-            detail->update(&reco);
+            QStandardItem* reco=control_model->item(controlPanel->view->currentIndex().row(),0);
+            detail->update(reco);
             emit gotodetail();
         }
         else QMessageBox::critical(this,"critical","请先选中域名");
@@ -195,13 +194,14 @@ Widget::Widget()
     /*连接goto,切换窗口*/
     connect(this,&Widget::gotopick,[=](){
         model->select();
+        pick->admin_update();
         targetwidget=pick;
         change_widget();
     });
     connect(this,&Widget::gotocontrol,[=](){
         if(regestered)
         {
-            controlPanel->update();
+            controlload();
             targetwidget=controlPanel;
             change_widget();
         }
@@ -268,9 +268,9 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-    svr=new server;
-    svr->update();
-    qDebug()<<svr->getLogs();
+//    svr=new server;
+//    svr->update();
+//    qDebug()<<svr->getLogs();
 
 }
 
@@ -312,6 +312,43 @@ void Widget::loadinfo()
         QString str=QString("update all_domain set quality='%1',price='%2',area='%3' where dm_name='%4' ").arg(quality_str).arg(price_str).arg(area_str).arg(dm_str);
         query.exec(str);
     });
+    pick->view->horizontalHeader()->resizeSection(0,400);
+    pick->view->horizontalHeader()->resizeSection(1,160);
+    pick->view->horizontalHeader()->resizeSection(2,180);
+    pick->view->horizontalHeader()->resizeSection(3,190);
+}
+
+void Widget::controlload()
+{
+    int row=0;//行数
+    control_model = new QStandardItemModel();
+    control_model->setHorizontalHeaderItem(0, new QStandardItem(QObject::tr("域名")));
+    control_model->setHorizontalHeaderItem(1, new QStandardItem(QObject::tr("性质")));
+    control_model->setHorizontalHeaderItem(2, new QStandardItem(QObject::tr("购买日期")));
+    control_model->setHorizontalHeaderItem(3, new QStandardItem(QObject::tr("到期时间")));
+    control_model->setHorizontalHeaderItem(4, new QStandardItem(QObject::tr("费用")));
+    //利用setModel()方法将数据模型与QTableView绑定
+    controlPanel->view->setEditTriggers(QTableView::NoEditTriggers);
+    controlPanel->view->setModel(control_model);
+    controlPanel->view->setStyleSheet("background-color:transparent");
+    controlPanel->view->setColumnWidth(0,310);controlPanel->view->setColumnWidth(1,170);controlPanel->view->setColumnWidth(2,170);controlPanel->view->setColumnWidth(3,170);controlPanel->view->setColumnWidth(4,150);
+    QSqlQuery query(db);
+    QString str=QString("select dm_name,quality,buytime,endtime,cost from sold_domain where account_id ='%1'").arg(ID);
+    query.exec(str);
+    QString dmname_str,quality_str,buytime_str,endtime_str,cost_str;
+    while(query.next())
+    {
+        dmname_str=query.value(0).toString();
+        quality_str=query.value(1).toString();
+        buytime_str=query.value(2).toString();
+        endtime_str=query.value(3).toString();
+        cost_str=query.value(4).toString();
+        control_model->setItem(row,0,new QStandardItem(dmname_str));
+        control_model->setItem(row,1,new QStandardItem(quality_str));
+        control_model->setItem(row,2,new QStandardItem(buytime_str));
+        control_model->setItem(row,3,new QStandardItem(endtime_str));
+        control_model->setItem(row++,4,new QStandardItem(cost_str));
+    }
 }
 
 QSqlDatabase& Widget::opendb()

@@ -3,6 +3,13 @@
 #include<qlabel.h>
 #include<qsqlrecord.h>
 #include<widget.h>
+#include<ReadOnlyDelegate.h>
+#include<qsqlquery.h>
+#include<QSqlError>
+#include<qstandarditemmodel.h>
+extern QSqlDatabase db;
+extern bool regestered;
+extern QString ID;
 domain_detail::domain_detail(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::domain_detail)
@@ -17,10 +24,23 @@ domain_detail::domain_detail(QWidget *parent) :
     connect(btn_back,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotocontrol();
     });
+    ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
+    ui->tableView->setItemDelegateForColumn(0,readOnlyDelegate);
+    ui->tableView->setItemDelegateForColumn(4,readOnlyDelegate);
+    model=new QSqlTableModel(this,db);
+    ui->tableView->setModel(model);
+    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    model->setTable("domain_record");
+    if(!model->select())
+    {
+        QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
+    }
+    ui->tableView->setStyleSheet("background-color:transparent");
 }
-void domain_detail::update(QSqlRecord* reco)
+void domain_detail::update(QStandardItem *reco)
 {
-
+    model->setFilter("dm_name like '%"+reco->text()+"%'");
 }
 domain_detail::~domain_detail()
 {

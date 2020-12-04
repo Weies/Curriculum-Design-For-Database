@@ -27,6 +27,7 @@ public:
     QSqlDatabase& opendb();
     void loadinfo();
     void initialUser();
+    void controlload();
     QTimer* timer0;
     QTimer* timer1;
     QTimer* timer2;
@@ -34,6 +35,7 @@ public:
 
     QLabel* title;
     QSqlTableModel *model;
+    QStandardItemModel *control_model;
     superButton* portrait;
     QWidget* header;
     superButton* btn_control;
