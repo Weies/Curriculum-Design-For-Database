@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>table_ip</class>
- <widget class="QWidget" name="table_ip">
+ <class>table_allhost</class>
+ <widget class="QWidget" name="table_allhost">
   <property name="geometry">
    <rect>
     <x>0</x>

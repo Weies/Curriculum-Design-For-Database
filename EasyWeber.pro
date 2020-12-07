@@ -17,6 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     addnewdomain.cpp \
+    addnewhost.cpp \
+    addnewip.cpp \
     adminwidget.cpp \
     control.cpp \
     domain_detail.cpp \
@@ -29,6 +31,7 @@ SOURCES += \
     purchase.cpp \
     register_widget.cpp \
     table_alldomain.cpp \
+    table_allhost.cpp \
     table_ip.cpp \
     table_solddomain.cpp \
     widget.cpp
@@ -36,6 +39,8 @@ SOURCES += \
 HEADERS += \
     ReadOnlyDelegate.h \
     addnewdomain.h \
+    addnewhost.h \
+    addnewip.h \
     adminwidget.h \
     control.h \
     domain_detail.h \
@@ -49,12 +54,15 @@ HEADERS += \
     server.h \
     superbutton.h \
     table_alldomain.h \
+    table_allhost.h \
     table_ip.h \
     table_solddomain.h \
     widget.h
 
 FORMS += \
     addnewdomain.ui \
+    addnewhost.ui \
+    addnewip.ui \
     adminwidget.ui \
     control.ui \
     domain_detail.ui \
@@ -65,6 +73,7 @@ FORMS += \
     purchase.ui \
     register_widget.ui \
     table_alldomain.ui \
+    table_allhost.ui \
     table_ip.ui \
     table_solddomain.ui
 

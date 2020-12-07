@@ -16,6 +16,10 @@
 #include<QMessageBox>
 #include<qsqlquery.h>
 #include<QTime>
+#include<QThread>
+#include<qnetworkaccessmanager.h>
+#include<qnetworkreply.h>
+
 QSqlDatabase db;
 bool is_admin=false;
 bool regestered=false;
@@ -71,6 +75,19 @@ Widget::Widget()
     solddomain=new table_solddomain(this);solddomain->hide();
     solddomain->resize(1000,720);
     solddomain->move(0,80);
+    allip=new table_ip(this);allip->hide();
+    allip->resize(1000,720);
+    allip->move(0,80);
+    newip=new addnewip(this);newip->hide();
+    newip->resize(1000,720);
+    newip->move(0,80);
+    allhost=new table_allhost(this);allhost->hide();
+    allhost->resize(1000,720);
+    allhost->move(0,80);
+    newhost=new addnewhost(this);newhost->hide();
+    newhost->resize(1000,720);
+    newhost->move(0,80);
+
 
     connect(this,&Widget::isadmin,[=](){
         if(regestered)
@@ -253,6 +270,24 @@ Widget::Widget()
         targetwidget=solddomain;
         change_widget();
     });
+    connect(this,&Widget::gotoallip,[=](){
+        allip->model->select();
+        targetwidget=allip;
+        change_widget();
+    });
+    connect(this,&Widget::gotonewip,[=](){
+        targetwidget=newip;
+        change_widget();
+    });
+    connect(this,&Widget::gotoallhost,[=](){
+        allhost->model->select();
+        targetwidget=allhost;
+        change_widget();
+    });
+    connect(this,&Widget::gotonewhost,[=](){
+        targetwidget=newhost;
+        change_widget();
+    });
 
     QLabel* l=new QLabel("|");
     l->setMaximumWidth(4);
@@ -268,10 +303,37 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-//    svr=new server;
-//    svr->update();
-//    qDebug()<<svr->getLogs();
+    svr=new server;
+    svr->update();
+//    svr->getLogs().toUtf8();
+    QFile f;
+    f.setFileName("E:\\log.txt");
+    f.open(QIODevice::ReadWrite);
+    QString str=f.readAll();
+    f.close();
+    //qDebug()<<str;
 
+//    QEventLoop loop;
+//    QNetworkAccessManager manager;
+//    QNetworkReply *pReply = manager.get(QNetworkRequest(QUrl("http://www.ip38.com/")));
+//    connect(pReply, SIGNAL(finished()), &loop, SLOT(quit()));
+//    loop.exec();
+//    QByteArray byte = pReply->readAll();
+//    QString strTemp;
+
+//    strTemp = strTemp.fromUtf8(byte.data());
+//    qDebug()<<strTemp;
+//    int nStartIndex = strTemp.indexOf("<div id=\"ipadcode\" style=\"display:none\">");
+//    if (nStartIndex >= 0)
+//    {
+//        nStartIndex += strlen("<div id=\"ipadcode\" style=\"display:none\">");
+//        int nEndIndex = strTemp.indexOf("</div>", nStartIndex);
+//        if (nEndIndex > nStartIndex)
+//        {
+//            QString strResult = strTemp.mid(nStartIndex + 1, nEndIndex - nStartIndex - 1);
+//            qDebug()<<strResult;
+//        }
+//    }
 }
 
 void Widget::initialUser()//读文件，自动为用户登录

@@ -1,5 +1,5 @@
-#include "table_ip.h"
-#include "ui_table_ip.h"
+#include "table_allhost.h"
+#include "ui_table_allhost.h"
 #include<qmessagebox.h>
 #include<QSqlError>
 #include<qsqlquery.h>
@@ -7,9 +7,9 @@
 #include<ReadOnlyDelegate.h>
 #include<widget.h>
 extern QSqlDatabase db;
-table_ip::table_ip(QWidget *parent) :
+table_allhost::table_allhost(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::table_ip)
+    ui(new Ui::table_allhost)
 {
     ui->setupUi(this);
     btn_back=new superButton("返回",this);btn_back->resize(250,40);
@@ -29,7 +29,7 @@ table_ip::table_ip(QWidget *parent) :
     view->setEditTriggers(QTableView::NoEditTriggers);
     model=new QSqlTableModel(this,db);
     view->setModel(model);
-    model->setTable("ip_resource");
+    model->setTable("entity_host");
     if(!model->select())
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
@@ -38,11 +38,11 @@ table_ip::table_ip(QWidget *parent) :
         emit dynamic_cast<Widget*>(parent)->gotoadmin();
     });
     connect(btn_add,&superButton::Clicked,[=](){
-        emit dynamic_cast<Widget*>(parent)->gotonewip();
+        emit dynamic_cast<Widget*>(parent)->gotonewhost();
     });
 }
 
-table_ip::~table_ip()
+table_allhost::~table_allhost()
 {
     delete ui;
 }

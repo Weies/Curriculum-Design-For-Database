@@ -36,13 +36,21 @@ purchase::purchase(QWidget *parent) :
             QDateTime endtime = buytime.addYears(ui->spinBox->value());
             QString time_str = buytime.toString("yyyy-MM-dd"); //设置显示格式
             QString time_str1 = endtime.toString("yyyy-MM-dd");
-            QString str = QString("insert into sold_domain values('%1','%2','%3',str_to_date('%4','%Y-%m-%d'),str_to_date('%5','%Y-%m-%d'),'%6','')").arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text()).arg(ID).arg(time_str).arg(time_str1).arg(ui->lineEdit->text());
+            QString str0 = QString("select IP from ip_resource where is_used = 'no'");
+            QSqlQuery query(db);
+            query.exec(str0);
+            QString ip_str;
+            if(query.next())ip_str=query.value(0).toString();
+            QString str = QString("insert into sold_domain values('%1','%2','%7','%3',str_to_date('%4','%Y-%m-%d'),str_to_date('%5','%Y-%m-%d'),'%6')").arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text()).arg(ID).arg(time_str).arg(time_str1).arg(ui->lineEdit->text()).arg(ip_str);
+            QString str1 = QString("update ip_resource set is_used='yes' where IP='%1'").arg(ip_str);
             QString str2 = QString("update all_domain set is_sold='yes' where dm_name='%1'").arg(ui->lineEdit_2->text());
             QString str3 = QString("delete from available_dn where dm_name='%1'").arg(ui->lineEdit_2->text());
-            QSqlQuery query(db);
+            QString str4 = QString("insert into domain_record values('%1','www','A','默认','%2','10分钟','无')").arg(ui->lineEdit_2->text()).arg(ip_str);
             query.exec(str);
+            query.exec(str1);
             query.exec(str2);
             query.exec(str3);
+            query.exec(str4);
             static_cast<Widget*>(parent)->model->select();
             emit dynamic_cast<Widget*>(parent)->gotopick();
         }

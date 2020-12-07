@@ -1,28 +1,29 @@
-#ifndef TABLE_IP_H
-#define TABLE_IP_H
+#ifndef TABLE_ALLHOST_H
+#define TABLE_ALLHOST_H
 
 #include <QWidget>
 #include<qtableview.h>
 #include<qsqltablemodel.h>
 #include<superbutton.h>
+
 namespace Ui {
-class table_ip;
+class table_allhost;
 }
 
-class table_ip : public QWidget
+class table_allhost : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit table_ip(QWidget *parent = nullptr);
-    ~table_ip();
+    explicit table_allhost(QWidget *parent = nullptr);
+    ~table_allhost();
     QTableView* view;
     QSqlTableModel *model;
     superButton *btn_back;
     superButton *btn_add;
 
 private:
-    Ui::table_ip *ui;
+    Ui::table_allhost *ui;
 };
 
-#endif // TABLE_IP_H
+#endif // TABLE_ALLHOST_H
