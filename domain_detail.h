@@ -3,6 +3,9 @@
 #include<qsqlrecord.h>
 #include <QWidget>
 #include<superbutton.h>
+#include<qtableview.h>
+#include<qsqltablemodel.h>
+#include<qstandarditemmodel.h>
 namespace Ui {
 class domain_detail;
 }
@@ -14,8 +17,11 @@ class domain_detail : public QWidget
 public:
     explicit domain_detail(QWidget *parent = nullptr);
     ~domain_detail();
-    void update(QSqlRecord* reco);
+    void update(QStandardItem *reco);
     superButton* btn_back;
+    QTableView* view;
+    QSqlTableModel *model;
+    QStandardItemModel *record_model;
 
 private:
     Ui::domain_detail *ui;

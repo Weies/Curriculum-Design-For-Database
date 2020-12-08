@@ -4,6 +4,7 @@
 #include<qsqlquery.h>
 extern QSqlDatabase db;
 extern bool regestered;
+extern bool is_admin;
 extern QString ID;
 extern QString username;
 extern QString password;
@@ -41,6 +42,7 @@ person_widget::person_widget(QWidget *parent) :
         QFile f(QApplication::applicationDirPath()+"/userinfo.dat");
         f.remove();
         regestered=false;
+        is_admin=false;
         ID="";
         password="";
         username="";

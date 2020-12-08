@@ -4,6 +4,7 @@
 #include <QWidget>
 #include<superbutton.h>
 #include<qtableview.h>
+#include<qstandarditemmodel.h>
 namespace Ui {
 class control;
 }
@@ -17,6 +18,7 @@ public:
     ~control();
 
     QTableView* view;
+    QStandardItemModel *control_model;
     superButton *btn_back;
     superButton *btn_next;
     void update();

@@ -26,6 +26,7 @@ public:
                 buffer+=skt->readAll();
                 if(buffer.size()>=filesize)
                 {
+
                     transport=false;emit newPkg();
                 }
                 return;

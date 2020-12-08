@@ -18,6 +18,10 @@
 #include<table_alldomain.h>
 #include<addnewdomain.h>
 #include<table_solddomain.h>
+#include<table_ip.h>
+#include<addnewip.h>
+#include<table_allhost.h>
+#include<addnewhost.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -27,6 +31,7 @@ public:
     QSqlDatabase& opendb();
     void loadinfo();
     void initialUser();
+    void controlload();
     QTimer* timer0;
     QTimer* timer1;
     QTimer* timer2;
@@ -34,6 +39,7 @@ public:
 
     QLabel* title;
     QSqlTableModel *model;
+    QStandardItemModel *control_model;
     superButton* portrait;
     QWidget* header;
     superButton* btn_control;
@@ -54,6 +60,10 @@ public:
     table_alldomain* alldomain;
     addnewdomain* newdomain;
     table_solddomain* solddomain;
+    table_ip* allip;
+    addnewip* newip;
+    table_allhost* allhost;
+    addnewhost* newhost;
 signals:
     void gotologin();
     void gotoregister();
@@ -67,6 +77,10 @@ signals:
     void gotoalldomain();
     void gotoadddomain();
     void gotosolddomain();
+    void gotoallip();
+    void gotonewip();
+    void gotoallhost();
+    void gotonewhost();
 };
 
 #endif // WIDGET_H
