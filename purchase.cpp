@@ -43,7 +43,7 @@ purchase::purchase(QWidget *parent) :
             query.exec(str);
             query.exec(str2);
             query.exec(str3);
-            static_cast<Widget*>(parent)->model->select();
+            static_cast<Widget*>(parent)->pick->model->select();
             emit dynamic_cast<Widget*>(parent)->gotopick();
         }
     });

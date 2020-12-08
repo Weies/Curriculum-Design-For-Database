@@ -30,7 +30,6 @@ public:
                 }
                 return;
             }
-            buffer.resize(0);
             filesize=QString(skt->readLine()).section('#',1,1).toInt();
             transport=true;
         });
@@ -50,6 +49,7 @@ public:
     {
         if(ready)
         {
+            buffer.resize(0);
             returned =false;
             QTimer::singleShot(10,this,[=](){
                 skt->write("GETLOGS\n");
