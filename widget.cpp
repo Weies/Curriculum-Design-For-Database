@@ -17,8 +17,11 @@
 #include<qsqlquery.h>
 #include<QTime>
 #include<QThread>
-#include<qnetworkaccessmanager.h>
-#include<qnetworkreply.h>
+#include<QNetworkAccessManager>
+#include<QNetworkRequest>
+#include<QNetworkReply>
+#include<regex>
+using namespace std;
 
 QSqlDatabase db;
 bool is_admin=false;
@@ -303,37 +306,6 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-    svr=new server;
-    svr->update();
-//    svr->getLogs().toUtf8();
-    QFile f;
-    f.setFileName("E:\\log.txt");
-    f.open(QIODevice::ReadWrite);
-    QString str=f.readAll();
-    f.close();
-    //qDebug()<<str;
-
-//    QEventLoop loop;
-//    QNetworkAccessManager manager;
-//    QNetworkReply *pReply = manager.get(QNetworkRequest(QUrl("http://www.ip38.com/")));
-//    connect(pReply, SIGNAL(finished()), &loop, SLOT(quit()));
-//    loop.exec();
-//    QByteArray byte = pReply->readAll();
-//    QString strTemp;
-
-//    strTemp = strTemp.fromUtf8(byte.data());
-//    qDebug()<<strTemp;
-//    int nStartIndex = strTemp.indexOf("<div id=\"ipadcode\" style=\"display:none\">");
-//    if (nStartIndex >= 0)
-//    {
-//        nStartIndex += strlen("<div id=\"ipadcode\" style=\"display:none\">");
-//        int nEndIndex = strTemp.indexOf("</div>", nStartIndex);
-//        if (nEndIndex > nStartIndex)
-//        {
-//            QString strResult = strTemp.mid(nStartIndex + 1, nEndIndex - nStartIndex - 1);
-//            qDebug()<<strResult;
-//        }
-//    }
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
