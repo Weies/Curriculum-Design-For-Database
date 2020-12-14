@@ -37,6 +37,8 @@ public:
     QTimer* timer2;
     QTimer* timer3;
 
+    int i=0;
+    QStringList timestr;
     QLabel* title;
     QSqlTableModel *model;
     QStandardItemModel *control_model;

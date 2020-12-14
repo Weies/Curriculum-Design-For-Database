@@ -17,8 +17,11 @@
 #include<qsqlquery.h>
 #include<QTime>
 #include<QThread>
-#include<qnetworkaccessmanager.h>
-#include<qnetworkreply.h>
+#include<QNetworkAccessManager>
+#include<QNetworkRequest>
+#include<QNetworkReply>
+#include<regex>
+using namespace std;
 
 QSqlDatabase db;
 bool is_admin=false;
@@ -303,15 +306,6 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-    svr=new server;
-    svr->update();
-//    svr->getLogs().toUtf8();
-    QFile f;
-    f.setFileName("E:\\log.txt");
-    f.open(QIODevice::ReadWrite);
-    QString str=f.readAll();
-    f.close();
-    //qDebug()<<str;
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
