@@ -19,6 +19,7 @@ public:
     ~domain_detail();
     void update(QStandardItem *reco);
     superButton* btn_back;
+    superButton* addfile;
     QTableView* view;
     QSqlTableModel *model;
     QStandardItemModel *record_model;
