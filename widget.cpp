@@ -306,6 +306,8 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
+    svr= new server();
+    svr->update();
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
@@ -350,6 +352,7 @@ void Widget::loadinfo()
     pick->view->horizontalHeader()->resizeSection(1,160);
     pick->view->horizontalHeader()->resizeSection(2,180);
     pick->view->horizontalHeader()->resizeSection(3,190);
+
 }
 
 void Widget::controlload()

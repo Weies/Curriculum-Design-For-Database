@@ -13,7 +13,7 @@ table_alldomain::table_alldomain(QWidget *parent) :
 {
     ui->setupUi(this);
     btn_back=new superButton("返回",this);btn_back->resize(250,40);
-    btn_back->move(700,650);
+    btn_back->move(600,650);
     btn_back->setMouseOutColor(QColor(4,186,251));
     btn_add=new superButton("添加",this);btn_add->resize(250,40);
     btn_add->move(200,650);

@@ -17,7 +17,7 @@ table_solddomain::table_solddomain(QWidget *parent) :
     btn_back->setMouseOutColor(QColor(4,186,251));
     view=ui->tableView;view->setShowGrid(0);
     view->setStyleSheet("background-color:rgba(255,255,255,100);border:0px;");
-    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+//    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     view->horizontalHeader()->setSectionsClickable(false);
     view->setMinimumWidth(800);
     view->installEventFilter(this);
@@ -29,6 +29,13 @@ table_solddomain::table_solddomain(QWidget *parent) :
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
+    view->horizontalHeader()->resizeSection(0,305);
+    view->horizontalHeader()->resizeSection(1,160);
+    view->horizontalHeader()->resizeSection(2,180);
+    view->horizontalHeader()->resizeSection(3,160);
+    view->horizontalHeader()->resizeSection(4,170);
+    view->horizontalHeader()->resizeSection(5,170);
+    view->horizontalHeader()->resizeSection(6,170);
     connect(btn_back,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotoadmin();
     });
