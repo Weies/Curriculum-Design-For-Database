@@ -85,4 +85,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     SRC.qrc
 
-RC_ICONS=emoji.ico
+RC_ICONS=mylogo.ico

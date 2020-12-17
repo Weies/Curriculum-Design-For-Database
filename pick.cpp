@@ -13,8 +13,9 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     ui->setupUi(this);
     resize(parent->width(),parent->height()-40);
     view=ui->tableView;view->setShowGrid(0);
-    view->setStyleSheet("background-color:rgba(255,255,255,100);border:0px;");
-//    view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    view->horizontalHeader()->setStyleSheet("background-color:rgba(255,0,0,0)");
+
     view->horizontalHeader()->setSectionsClickable(false);
     view->setMinimumWidth(800);
     view->installEventFilter(this);

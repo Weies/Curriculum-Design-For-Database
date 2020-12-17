@@ -4,8 +4,7 @@
         <file>max.png</file>
         <file>min.png</file>
         <file>un_reg_user.png</file>
-        <file>emoji_01.png</file>
-        <file>emoji.ico</file>
+        <file>mylogo.ico</file>
     </qresource>
     <qresource prefix="/bkg">
         <file>bkg.png</file>

@@ -350,6 +350,9 @@ void Widget::loadinfo()
     pick->view->horizontalHeader()->resizeSection(1,160);
     pick->view->horizontalHeader()->resizeSection(2,180);
     pick->view->horizontalHeader()->resizeSection(3,190);
+    pick->view->setStyleSheet("background-color:rgba(255,255,255,100);"
+    "border:0px;selection-color:red;selection-background-color:white;"
+                              "");
 }
 
 void Widget::controlload()
