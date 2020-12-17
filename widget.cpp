@@ -337,6 +337,13 @@ void Widget::loadinfo()
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
+    //QTableView::Item{border:none;border-bottom:1px solid rgb(100,100,100);
+//    pick->view->setStyleSheet("selection-background-color:rgba(0,230,255,100);"
+//                              "selection-color:rgb(245,140,50);border:none;"
+//                              "background-color:transparent;border:0;alternate-background-color:rgba(255,255,255,100);"
+//                              "selected{color:red;}");
+    pick->view->setSelectionBehavior(QAbstractItemView::SelectRows);
+    pick->view->horizontalHeader()->setDisabled(true);
     connect(pick->searchbutton,&QToolButton::clicked,[=](){model->setFilter("dm_name like '%"+pick->input->text()+"%'");});
     connect(model,&QSqlTableModel::beforeUpdate,[=](){
         QSqlRecord reco=model->record(pick->view->currentIndex().row());

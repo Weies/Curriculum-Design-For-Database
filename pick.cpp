@@ -13,12 +13,12 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     ui->setupUi(this);
     resize(parent->width(),parent->height()-40);
     view=ui->tableView;view->setShowGrid(0);
-    view->setStyleSheet("background-color:transparent;border:0;");
-    view->horizontalHeader()->setStyleSheet("background-color:rgba(255,0,0,0)");
 
+    view->horizontalHeader()->setStyleSheet("background-color:rgba(255,0,0,0)");
     view->horizontalHeader()->setSectionsClickable(false);
     view->setMinimumWidth(800);
     view->installEventFilter(this);
+    view->setAlternatingRowColors(true);
 
     buy=new QToolButton(this);buy->move(800,650);buy->setText("立即购买");
     buy->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");
