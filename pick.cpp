@@ -13,7 +13,7 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     ui->setupUi(this);
     resize(parent->width(),parent->height()-40);
     view=ui->tableView;view->setShowGrid(0);
-
+    view->setStyleSheet("background-color:transparent;border:0;");
     view->horizontalHeader()->setStyleSheet("background-color:rgba(255,0,0,0)");
 
     view->horizontalHeader()->setSectionsClickable(false);
@@ -51,7 +51,6 @@ bool pick::eventFilter(QObject* obj,QEvent* evt)
     }
     if(obj==this->view)
     {
-        //qDebug()<<evt->type();
         if(evt->type()==QEvent::FocusIn)
         {
            return true;

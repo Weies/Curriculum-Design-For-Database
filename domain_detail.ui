@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget_2">
+  <widget class="QTableView" name="tableView_2">
    <property name="geometry">
     <rect>
      <x>0</x>

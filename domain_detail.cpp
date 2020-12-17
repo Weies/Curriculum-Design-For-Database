@@ -27,9 +27,11 @@ domain_detail::domain_detail(QWidget *parent) :
     addfile=new superButton("上传",this);addfile->resize(150,40);
     addfile->move(690,543);
     addfile->setMouseOutColor(QColor(4,186,251));
+
     connect(btn_back,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotocontrol();
     });
+
     ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
     ui->tableView->setItemDelegateForColumn(0,readOnlyDelegate);
     ui->tableView->setItemDelegateForColumn(4,readOnlyDelegate);
@@ -42,10 +44,32 @@ domain_detail::domain_detail(QWidget *parent) :
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
+
+    record_model=new QSqlTableModel(this,db);
+    record_model->setTable("domain_visit");
+    ui->tableView_2->setModel(record_model);
+    ui->tableView_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    if(!record_model->select())
+    {
+        QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
+    }
+
     ui->tableView->setStyleSheet("background-color:transparent");
     connect(addfile,&superButton::Clicked,[=](){
         QString filename=QFileDialog::getOpenFileName(this,"上传文件","C:");
-        svr->upload(filename);
+        if(filename!="")
+        {
+            svr->upload(filename);
+        }
+    });
+
+    refresh=new superButton("刷新",this);
+    refresh->move(900,190);refresh->resize(40,15);
+    connect(refresh,&superButton::Clicked,[=](){
+        svr->update();
+        QTimer::singleShot(2000,record_model,[=](){
+            record_model->select();
+        });
     });
 }
 void domain_detail::update(QStandardItem *reco)

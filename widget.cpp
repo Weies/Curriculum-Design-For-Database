@@ -44,6 +44,8 @@ Widget::Widget()
     srand(time(NULL)-16056e6);
     resize(1000,800);
     db=opendb();
+
+    svr= new server();
     if(!db.open())QMessageBox::warning(this,"Failed","Failed to connect to server:"+db.lastError().text());
     pick=new class pick(this);
     pick->move(0,80);
@@ -306,8 +308,7 @@ Widget::Widget()
     {
         portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));
     }
-    svr= new server();
-    svr->update();
+
 }
 
 void Widget::initialUser()//读文件，自动为用户登录
@@ -352,7 +353,6 @@ void Widget::loadinfo()
     pick->view->horizontalHeader()->resizeSection(1,160);
     pick->view->horizontalHeader()->resizeSection(2,180);
     pick->view->horizontalHeader()->resizeSection(3,190);
-
 }
 
 void Widget::controlload()

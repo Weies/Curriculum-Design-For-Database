@@ -22,7 +22,8 @@ public:
     superButton* addfile;
     QTableView* view;
     QSqlTableModel *model;
-    QStandardItemModel *record_model;
+    superButton* refresh;
+    QSqlTableModel *record_model;
 
 private:
     Ui::domain_detail *ui;

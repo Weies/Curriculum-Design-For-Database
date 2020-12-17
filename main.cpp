@@ -13,6 +13,5 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(":/icon/emoji_01.png"));
     Widget w;
     w.show();
-
     return a.exec();
 }
