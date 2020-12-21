@@ -121,6 +121,7 @@ Widget::Widget()
     timer2=new QTimer(this);
     timer3=new QTimer(this);
 
+
     connect(timer0,&QTimer::timeout,[=](){
         targetwidget->move(0,targetwidget->y()-20);
         currentwidget->move(0,currentwidget->y()-20);
@@ -330,6 +331,7 @@ void Widget::initialUser()//读文件，自动为用户登录
 
 void Widget::loadinfo()
 {
+    timer=new QTimer(this);
     model=new QSqlTableModel(this,db);
     pick->view->setModel(model);
     model->setTable("available_DN");
@@ -355,6 +357,10 @@ void Widget::loadinfo()
         QSqlQuery query(db);
         QString str=QString("update all_domain set quality='%1',price='%2',area='%3' where dm_name='%4' ").arg(quality_str).arg(price_str).arg(area_str).arg(dm_str);
         query.exec(str);
+    });
+    timer->start(1000);
+    connect(timer,&QTimer::timeout,[=](){
+        model->select();
     });
     pick->view->horizontalHeader()->resizeSection(0,400);
     pick->view->horizontalHeader()->resizeSection(1,160);

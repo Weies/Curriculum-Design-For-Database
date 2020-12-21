@@ -36,6 +36,7 @@ public:
     QTimer* timer1;
     QTimer* timer2;
     QTimer* timer3;
+    QTimer* timer;
 
     int i=0;
     QStringList timestr;
