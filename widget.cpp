@@ -358,7 +358,7 @@ void Widget::loadinfo()
         QString str=QString("update all_domain set quality='%1',price='%2',area='%3' where dm_name='%4' ").arg(quality_str).arg(price_str).arg(area_str).arg(dm_str);
         query.exec(str);
     });
-    timer->start(1000);
+    timer->start(5000);
     connect(timer,&QTimer::timeout,[=](){
         model->select();
     });
