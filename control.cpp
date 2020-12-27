@@ -13,6 +13,11 @@ control::control(QWidget *parent) :
 {
     ui->setupUi(this);
     view=ui->tableView;
+    view->setAlternatingRowColors(true);
+    view->setStyleSheet("font-size:100px;selection-background-color:rgba(0,230,255,100);"
+                        "selection-color:rgb(245,140,50);border:none;"
+                        "background-color:transparent;border:0;alternate-background-color:rgba(255,255,255,100);"
+                        );
     QLabel *head=new QLabel("控制台",this);
     head->resize(100,40);
     head->move(470,40);
