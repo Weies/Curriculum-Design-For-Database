@@ -22,7 +22,7 @@ login::login(QWidget *parent) :
     connect(btn_register,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotoregister();
     });
-    ui->toolButton->setStyleSheet("color:blue");
+    //ui->toolButton->setStyleSheet("color:blue");
 
     connect(btn_loginin,&superButton::Clicked,[=](){
         QString id_str=ui->lineEdit->text();
@@ -33,8 +33,8 @@ login::login(QWidget *parent) :
         query.exec(str);
         while(query.next())password_str1=query.value(0).toString();
         if(id_str=="")QMessageBox::critical(this,"critical","账号不能为空");
-        else if(password_str=="")QMessageBox::critical(this,"critical","密码不能为空");
-        else if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密码错误");
+        else if(password_str=="")QMessageBox::critical(this,"critical","密� �不能为空");
+        else if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密� �错误");
         else if(password_str==password_str1){
             regestered=true;
             ID=id_str;password=password_str;
@@ -65,7 +65,7 @@ void login::reLoadUser()
     else
     {
         while(query.next())password_str1=query.value(0).toString();
-        if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密码错误");
+        if(password_str!=password_str1)QMessageBox::critical(this,"critical","账号或密� �错误");
         else if(password_str==password_str1){
             regestered=true;
             dynamic_cast<Widget*>(this->parent())->person->initialize();

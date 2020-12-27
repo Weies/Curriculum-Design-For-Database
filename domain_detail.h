@@ -24,6 +24,7 @@ public:
     QSqlTableModel *model;
     superButton* refresh;
     QSqlTableModel *record_model;
+    QString dm_name;
 
 private:
     Ui::domain_detail *ui;

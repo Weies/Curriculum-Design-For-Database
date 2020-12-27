@@ -22,6 +22,7 @@
 #include<addnewip.h>
 #include<table_allhost.h>
 #include<addnewhost.h>
+#include<table_dmresource.h>
 class Widget:public No_Frame_Widget//多场景窗口
 {
     Q_OBJECT
@@ -32,6 +33,7 @@ public:
     void loadinfo();
     void initialUser();
     void controlload();
+    void timecheck();
     QTimer* timer0;
     QTimer* timer1;
     QTimer* timer2;
@@ -67,6 +69,8 @@ public:
     addnewip* newip;
     table_allhost* allhost;
     addnewhost* newhost;
+    table_dmresource* dmsource;
+
 signals:
     void gotologin();
     void gotoregister();
@@ -84,6 +88,7 @@ signals:
     void gotonewip();
     void gotoallhost();
     void gotonewhost();
+    void gotosource();
 };
 
 #endif // WIDGET_H

@@ -49,6 +49,7 @@ domain_detail::domain_detail(QWidget *parent) :
     record_model->setTable("domain_visit");
     ui->tableView_2->setModel(record_model);
     ui->tableView_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_2->setEditTriggers(QTableView::NoEditTriggers);
     if(!record_model->select())
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
@@ -61,6 +62,29 @@ domain_detail::domain_detail(QWidget *parent) :
         {
             svr->upload(filename);
         }
+        QStringList list=filename.split('/');
+        QStringList list1=list[list.length()-1].split('.');
+        QSqlQuery query(db);
+        QString str = QString("select dm_name from domain_resource where dm_name = '%1'").arg(dm_name);
+        query.exec(str);
+        query.next();
+        int iswrong=0;
+        QString str1;
+        if(query.value(0).toString()=="")
+        {
+            if(list1[list1.length()-1]=="html")str1 = QString("insert into domain_resource values('%1','%2','','')").arg(dm_name).arg(list[list.length()-1]);
+            else if(list1[list1.length()-1]=="css")str1 = QString("insert into domain_resource values('%1','','%2','')").arg(dm_name).arg(list[list.length()-1]);
+            else if(list1[list1.length()-1]=="js")str1 = QString("insert into domain_resource values('%1','','','%2')").arg(dm_name).arg(list[list.length()-1]);
+            else QMessageBox::critical(this,"critical","文件格式有错误"),iswrong=1;
+        }
+        else
+        {
+            if(list1[list1.length()-1]=="html")str1 = QString("update domain_resource set html='%2' where dm_name='%1' ").arg(dm_name).arg(list[list.length()-1]);
+            else if(list1[list1.length()-1]=="css")str1 = QString("update domain_resource set css='%2' where dm_name='%1' ").arg(dm_name).arg(list[list.length()-1]);
+            else if(list1[list1.length()-1]=="js")str1 = QString("update domain_resource set js='%2' where dm_name='%1' ").arg(dm_name).arg(list[list.length()-1]);
+            else QMessageBox::critical(this,"critical","文件格式有错误"),iswrong=1;
+        }
+        if(iswrong==0)query.exec(str1);
     });
 
     refresh=new superButton("刷新",this);
@@ -75,6 +99,7 @@ domain_detail::domain_detail(QWidget *parent) :
 void domain_detail::update(QStandardItem *reco)
 {
     model->setFilter("dm_name like '%"+reco->text()+"%'");
+    dm_name=reco->text();
 }
 domain_detail::~domain_detail()
 {
