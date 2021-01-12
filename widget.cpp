@@ -382,6 +382,7 @@ void Widget::controlload()
     controlPanel->view->setModel(control_model);
     controlPanel->view->setStyleSheet("background-color:transparent");
     controlPanel->view->setColumnWidth(0,310);controlPanel->view->setColumnWidth(1,170);controlPanel->view->setColumnWidth(2,170);controlPanel->view->setColumnWidth(3,170);controlPanel->view->setColumnWidth(4,150);
+
     QSqlQuery query(db);
     QString str=QString("select dm_name,quality,buytime,endtime,cost from sold_domain where account_id ='%1'").arg(ID);
     query.exec(str);
