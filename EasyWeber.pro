@@ -32,6 +32,7 @@ SOURCES += \
     register_widget.cpp \
     table_alldomain.cpp \
     table_allhost.cpp \
+    table_dmresource.cpp \
     table_ip.cpp \
     table_solddomain.cpp \
     widget.cpp
@@ -55,6 +56,7 @@ HEADERS += \
     superbutton.h \
     table_alldomain.h \
     table_allhost.h \
+    table_dmresource.h \
     table_ip.h \
     table_solddomain.h \
     widget.h
@@ -74,6 +76,7 @@ FORMS += \
     register_widget.ui \
     table_alldomain.ui \
     table_allhost.ui \
+    table_dmresource.ui \
     table_ip.ui \
     table_solddomain.ui
 

@@ -26,6 +26,9 @@ adminwidget::adminwidget(QWidget *parent) :
     connect(btn_next2,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotosolddomain();
     });
+    connect(btn_next3,&superButton::Clicked,[=](){
+        emit dynamic_cast<Widget*>(parent)->gotosource();
+    });
     connect(btn_next4,&superButton::Clicked,[=](){
         emit dynamic_cast<Widget*>(parent)->gotoallhost();
     });

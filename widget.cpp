@@ -92,6 +92,9 @@ Widget::Widget()
     newhost=new addnewhost(this);newhost->hide();
     newhost->resize(1000,720);
     newhost->move(0,80);
+    dmsource=new table_dmresource(this);dmsource->hide();
+    dmsource->resize(1000,720);
+    dmsource->move(0,80);
 
 
     connect(this,&Widget::isadmin,[=](){
@@ -113,6 +116,7 @@ Widget::Widget()
 
     initialUser();
     loadinfo();
+    timecheck();
 
     title=new QLabel(this);title->setText(" /* EasyWeber 一键成为网络的主人*/");title->setStyleSheet("color:rgb(79,141,255)");
     title->move(0,5);
@@ -285,6 +289,11 @@ Widget::Widget()
         targetwidget=newip;
         change_widget();
     });
+    connect(this,&Widget::gotosource,[=](){
+        dmsource->model->select();
+        targetwidget=dmsource;
+        change_widget();
+    });
     connect(this,&Widget::gotoallhost,[=](){
         allhost->model->select();
         targetwidget=allhost;
@@ -443,5 +452,52 @@ void Widget::change_widget()
     if(direction==3)
     {
         targetwidget->move(-1000,90);timer3->start(10);
+    }
+}
+
+void Widget::timecheck()
+{
+    QSqlQuery query(db);
+    QString str = QString("select dm_name,endtime from sold_domain");
+    query.exec(str);
+    while(query.next())
+    {
+        QString dm_str=query.value(0).toString();
+        QString endtime=query.value(1).toString();
+        QDateTime currenttime = QDateTime::currentDateTime(); //获取系统现在的时间
+        QString time_str = currenttime.toString("yyyy-MM-dd"); //设置显示格式
+        QStringList current=time_str.split('-');
+        QStringList end=endtime.split('-');
+        int currentyear=current[0].toInt();
+        int currentmonth=current[1].toInt();
+        int currentday=current[2].toInt();
+        int endyear=end[0].toInt();
+        int endmonth=end[1].toInt();
+        int endday=end[2].toInt();
+        if(currentyear>endyear||(currentyear==endyear&&currentmonth>endmonth)||(currentyear==endyear&&currentmonth==endmonth&&currentday>endday))
+        {
+            QSqlQuery query1(db);
+            QString str1 = QString("update all_domain set is_sold='no' where dm_name='%1'").arg(dm_str);
+            QString str2 = QString("select quality,price,area from all_domain where dm_name='%1'").arg(dm_str);
+            query1.exec(str1);
+            query1.exec(str2);
+            QString quality,price,area;
+            while(query1.next())
+            {
+                quality=query.value(0).toString();
+                price=query.value(1).toString();
+                area=query.value(2).toString();
+            }
+            QString str3 = QString("insert into available_dn values('%1','%2','%3','%4')").arg(dm_str).arg(quality).arg(price).arg(area);
+            query1.exec(str3);
+            QString str4 = QString("select ip from sold_domain where dm_name='%1'").arg(dm_str);
+            query1.exec(str4);
+            query1.next();
+            QString ip_str=query.value(0).toString();
+            QString str5 = QString("delete from sold_domain where dm_name='%1'").arg(dm_str);
+            query1.exec(str5);
+            QString str6 = QString("update ip_resource set is_used='no' where IP='%1'").arg(ip_str);
+            query1.exec(str6);
+        }
     }
 }
