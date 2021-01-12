@@ -33,13 +33,22 @@ purchase::purchase(QWidget *parent) :
         else
         {
             QSqlQuery query(db);
+            QSqlQuery query1(db);
             QString str00 = QString("select is_sold from all_domain where dm_name = '%1'").arg(ui->lineEdit_2->text());
+            QString str11 = QString("select username,name,sex,credit_type,credit_id,address,for_reference from user where account_id = '%1'").arg(ID);
             query.exec(str00);
+            query1.exec(str11);
             query.next();
+            query1.next();
             if(query.value(0).toString()=="yes")
             {
                 QMessageBox::critical(this,"critical","很抱歉，其他用户已经抢先买下此域名，请选择其他域名购买。");
                 emit dynamic_cast<Widget*>(parent)->gotopick();
+            }
+            else if(query1.value(0).toString()==""||query1.value(1).toString()==""||query1.value(2).toString()==""||query1.value(3).toString()==""||query1.value(4).toString()==""||query1.value(5).toString()==""||query1.value(6).toString()=="")
+            {
+                QMessageBox::critical(this,"critical","请先完善个人真实信息再购买域名");
+                emit dynamic_cast<Widget*>(parent)->gotoperson();
             }
             else
             {

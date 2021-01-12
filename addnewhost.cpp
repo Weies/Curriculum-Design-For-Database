@@ -31,7 +31,7 @@ addnewhost::addnewhost(QWidget *parent) :
             while(query.next())host_str1=query.value(0).toString();
             if(host_str1!="")QMessageBox::critical(this,"critical","主机库中已存在该主机");
             else {
-                QString str1 = QString("insert into entity_host values('%1','%2','','%3','no',0)").arg(host_str).arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text());
+                QString str1 = QString("insert into entity_host values('%1','%2','%3','no',0)").arg(host_str).arg(ui->lineEdit_2->text()).arg(ui->lineEdit_3->text());
                 query.exec(str1);
                 emit dynamic_cast<Widget*>(parent)->gotoallhost();
             }
