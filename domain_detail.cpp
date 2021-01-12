@@ -35,21 +35,32 @@ domain_detail::domain_detail(QWidget *parent) :
     ReadOnlyDelegate* readOnlyDelegate = new ReadOnlyDelegate();
     ui->tableView->setItemDelegateForColumn(0,readOnlyDelegate);
     ui->tableView->setItemDelegateForColumn(4,readOnlyDelegate);
+//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     model=new QSqlTableModel(this,db);
     ui->tableView->setModel(model);
-    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     model->setTable("domain_record");
     if(!model->select())
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
     }
+    ui->tableView->horizontalHeader()->resizeSection(0,300);
+    ui->tableView->horizontalHeader()->resizeSection(1,90);
+    ui->tableView->horizontalHeader()->resizeSection(2,90);
+    ui->tableView->horizontalHeader()->resizeSection(3,90);
+    ui->tableView->horizontalHeader()->resizeSection(4,200);
+    ui->tableView->horizontalHeader()->resizeSection(5,100);
+    ui->tableView->horizontalHeader()->resizeSection(6,100);
 
     record_model=new QSqlTableModel(this,db);
     record_model->setTable("domain_visit");
     ui->tableView_2->setModel(record_model);
-    ui->tableView_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+//    ui->tableView_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView_2->setEditTriggers(QTableView::NoEditTriggers);
+    ui->tableView_2->horizontalHeader()->resizeSection(0,0);
+    ui->tableView_2->horizontalHeader()->resizeSection(1,300);
+    ui->tableView_2->horizontalHeader()->resizeSection(2,335);
+    ui->tableView_2->horizontalHeader()->resizeSection(3,300);
     if(!record_model->select())
     {
         QMessageBox::warning(this,"Failed","Failed to get the data:"+db.lastError().text());
