@@ -94,11 +94,8 @@ public:
                 f.open(QIODevice::ReadOnly);
                 QByteArray ar;
                 int len=1;
-                while(len)
-                {
-                    ar=f.read(1024*16);
-                    len=skt->write(ar);
-                }
+                ar=f.readAll();
+                len=skt->write(ar);
                 f.close();
             });
         }
