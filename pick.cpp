@@ -6,6 +6,7 @@
 #include<ReadOnlyDelegate.h>
 extern QSqlDatabase db;
 #include<QKeyEvent>
+#include<QScrollBar>
 extern bool is_admin;
 extern bool regestered;
 pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
@@ -19,7 +20,7 @@ pick::pick(QWidget *parent) : QWidget(parent),ui(new Ui::Form)
     view->setMinimumWidth(800);
     view->installEventFilter(this);
     view->setAlternatingRowColors(true);
-
+    view->horizontalScrollBar()->hide();
     buy=new QToolButton(this);buy->move(800,650);buy->setText("立即购买");
     buy->setStyleSheet("width:150px;height:60px;background-color:rgb(53,150,255);border-radius:10px;");
     input=new Line(this);input->move(20,45);input->resize(800,50);input->setText("请输入您心仪的网站名称");

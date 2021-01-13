@@ -21,6 +21,7 @@
 #include<QNetworkRequest>
 #include<QNetworkReply>
 #include<regex>
+#include<dialog.h>
 using namespace std;
 
 QSqlDatabase db;
@@ -95,8 +96,6 @@ Widget::Widget()
     dmsource=new table_dmresource(this);dmsource->hide();
     dmsource->resize(1000,720);
     dmsource->move(0,80);
-
-
     connect(this,&Widget::isadmin,[=](){
         if(regestered)
         {
@@ -310,7 +309,7 @@ Widget::Widget()
     lay->addWidget(btn_sites);
     lay->addWidget(l);
     lay->addWidget(btn_control);
-    connect(btn_sites,&superButton::Clicked,this,[=](){btn_sites->setMouseOutColor(QColor(100,100,255,150));});
+    //connect(btn_sites,&superButton::Clicked,this,[=](){btn_sites->setMouseOutColor(QColor(100,100,255,150));});
 
     if(!regestered)
     portrait->setPixmap(QPixmap(":/icon/un_reg_user.png"));//未注册设置默认头像

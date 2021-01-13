@@ -21,6 +21,7 @@ SOURCES += \
     addnewip.cpp \
     adminwidget.cpp \
     control.cpp \
+    dialog.cpp \
     domain_detail.cpp \
     line.cpp \
     login.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     addnewip.h \
     adminwidget.h \
     control.h \
+    dialog.h \
     domain_detail.h \
     line.h \
     login.h \
@@ -67,6 +69,7 @@ FORMS += \
     addnewip.ui \
     adminwidget.ui \
     control.ui \
+    dialog.ui \
     domain_detail.ui \
     login.ui \
     no_frame_widget.ui \

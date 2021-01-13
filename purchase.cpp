@@ -5,6 +5,7 @@
 #include<qmessagebox.h>
 #include<qsqlquery.h>
 #include<qdatetime.h>
+#include<dialog.h>
 extern QSqlDatabase db;
 extern bool regestered;
 extern QString ID;
@@ -73,7 +74,6 @@ purchase::purchase(QWidget *parent) :
                 static_cast<Widget*>(parent)->model->select();
                 emit dynamic_cast<Widget*>(parent)->gotopick();
             }
-
         }
     });
     connect(btn_return,&superButton::Clicked,[=](){
